@@ -26,16 +26,15 @@
   <link href="assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
 
   <link href="assets/css/main.css" rel="stylesheet">
+  <script src="assets/js/includes.js"></script>
 </head>
 
 <body class="index-page">
+  <!-- ========== Site header (partial) ========== -->
   <header id="header" class="header sticky-top py-2 bg-white border-bottom"></header>
-  <script>
-    fetch('partials/header.html')
-      .then(function (res) { return res.text(); })
-      .then(function (data) { document.getElementById('header').innerHTML = data; });
-  </script>
+  <script>HTShop.loadHeader();</script>
 
+  <!-- ========== Page: search results ========== -->
   <main class="main">
     <div class="container py-5">
       <h1 class="h3 mb-2">Kết quả tìm kiếm</h1>
@@ -44,12 +43,9 @@
     </div>
   </main>
 
+  <!-- ========== Site footer (partial) ========== -->
   <footer id="footer" class="bg-light pt-4 border-top mt-4"></footer>
-  <script>
-    fetch('partials/footer.html')
-      .then(function (res) { return res.text(); })
-      .then(function (data) { document.getElementById('footer').innerHTML = data; });
-  </script>
+  <script>HTShop.loadFooter();</script>
 
   <a href="#" id="scroll-top" class="scroll-top d-flex align-items-center justify-content-center"><i
       class="bi bi-arrow-up-short"></i></a>

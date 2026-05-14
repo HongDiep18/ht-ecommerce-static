@@ -42,7 +42,7 @@ Across the top, **Hồng Thạnh** (HT) uses the logo on the left, a rounded **s
 | **Icons** | **Bootstrap Icons**, **Font Awesome 6** (CDN in pages) | Mix of `bi-*` and Font Awesome classes. |
 | **Typography** | **Google Fonts** | Roboto, Lato, Nunito (linked from `fonts.googleapis.com`). |
 | **Scripting** | **Vanilla JavaScript** | `assets/js/main.js` (template behaviors), `header.js`, `cuahang.js`, inline scripts on some pages. |
-| **Partials** | `fetch()` API | Header/footer injected from `partials/*.html`; **requires HTTP(S)** origin (not reliable with `file://`). |
+| **Partials** | `includes.js` + `fetch()` | `HTShop.loadHeader()` / `loadFooter()` load `partials/*.html`; **requires HTTP(S)** (not reliable with `file://`). |
 | **Search** | `site-search.js` + `products.json` | Client-side catalog filter; results on `search.html` (no backend). |
 
 ### Third-party libraries (vendored under `assets/vendor/`)
@@ -112,12 +112,23 @@ Examples: `npx serve .`, Python `python -m http.server 8080`, or IIS/XAMPP point
 - Matching is case-insensitive and strips most combining accents so queries like `dep` can match **Dép**.
 - To add or change products, edit **`assets/data/products.json`** (fields: `name`, `price`, `image`, `category`, `categoryUrl`, optional `keywords`, optional `detailUrl`; default detail link is `portfolio-details.html`).
 
+### HTML page organization
+
+- **Shop pages** (`index.html`, `search.html`, `introduce.html`, `log.html`, `cuahang.html`, `giay*.html`, `phuKien.html`) share one layout rhythm:
+  1. `<head>` — meta → favicons → fonts → Font Awesome → vendor CSS → `main.css` (+ page CSS) → **`assets/js/includes.js`**
+  2. **Site header** — empty `<header id="header">` then `<script>HTShop.loadHeader();</script>` (loads `partials/header.html`)
+  3. **Page body** — content only, introduced with `<!-- ========== Page: … ========== -->`
+  4. **Optional** — `<div id="layoutCommon">` + `HTShop.loadLayoutCommon()` for `partials/commonNamNu.html` (store + category listing pages)
+  5. **Site footer** — `<footer id="footer">` then `HTShop.loadFooter();`
+  6. **Scripts** — vendor bundle → `header.js` → `site-search.js` → `main.js` (and any page-specific script before that block when needed)
+- **Legacy/template-only pages** (`starter-page.html`, `portfolio-details.html`, `service-details.html`) still use the old embedded header pattern from the BootstrapMade template; new storefront pages should copy a refactored shop page instead.
+
 ### 3. Add or change a page
 
-1. Copy an existing page (e.g. `starter-page.html`) or duplicate a category page.
+1. Copy a refactored shop page (**`introduce.html`**, **`giayNam.html`**, or **`search.html`**) instead of `starter-page.html` if you need the shared header, footer, and search.
 2. Keep the same `<head>` vendor CSS order as other pages for consistent styling.
 3. Include the same vendor JS at the bottom (`bootstrap.bundle`, `main.js`, etc.) as `index.html` unless you know you can omit a library.
-4. If the page uses the shared header/footer, reuse the same `fetch` pattern used on `index.html`, and include **`assets/js/site-search.js`** immediately after **`assets/js/header.js`** so the search box keeps working.
+4. Keep **`assets/js/includes.js`** in `<head>` and call **`HTShop.loadHeader()`** / **`HTShop.loadFooter()`** after the placeholders; include **`assets/js/site-search.js`** immediately after **`header.js`** when the search box is present.
 
 ### 4. Styling
 
@@ -151,7 +162,7 @@ HT_Shop/
 ├── assets/
 │   ├── data/products.json    # Search catalog (client-side)
 │   ├── css/
-│   ├── js/                   # header.js, site-search.js, main.js, …
+│   ├── js/                   # includes.js, header.js, site-search.js, main.js, …
 │   ├── img/
 │   ├── scss/
 │   └── vendor/               # Bootstrap, Swiper, AOS, etc.
