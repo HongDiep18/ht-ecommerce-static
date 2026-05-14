@@ -1,4 +1,4 @@
-# HT Shop (Hong Thanh)
+# ht-ecommerce-static
 
 Multi-page storefront website for footwear and accessories. Content and navigation are primarily in Vietnamese. The site reuses shared **header** and **footer** fragments loaded at runtime, and ships with optional **PHP** endpoints for contact and newsletter forms.
 
@@ -27,7 +27,7 @@ Across the top, **Hồng Thạnh** (HT) uses the logo on the left, a rounded **s
   - `cuahang.html` — store listing
   - `introduce.html`, `log.html` — about / articles
   - `giayNam.html`, `giayNu.html`, `giayTreEm.html`, `giaySales.html`, `phuKien.html` — product category pages
-  - `forms/contact.php`, `forms/newsletter.php` — server-side form handlers (require PHP)
+  - `search.html` — product search results (`?q=…`)
 
 ---
 
@@ -43,6 +43,7 @@ Across the top, **Hồng Thạnh** (HT) uses the logo on the left, a rounded **s
 | **Typography** | **Google Fonts** | Roboto, Lato, Nunito (linked from `fonts.googleapis.com`). |
 | **Scripting** | **Vanilla JavaScript** | `assets/js/main.js` (template behaviors), `header.js`, `cuahang.js`, inline scripts on some pages. |
 | **Partials** | `fetch()` API | Header/footer injected from `partials/*.html`; **requires HTTP(S)** origin (not reliable with `file://`). |
+| **Search** | `site-search.js` + `products.json` | Client-side catalog filter; results on `search.html` (no backend). |
 
 ### Third-party libraries (vendored under `assets/vendor/`)
 
@@ -67,7 +68,7 @@ Across the top, **Hồng Thạnh** (HT) uses the logo on the left, a rounded **s
 |------|---------|
 | `assets/css/` | Compiled/custom styles (`main.css`, page-specific CSS). |
 | `assets/scss/` | SCSS sources / readme for theme customization (if you compile SCSS locally). |
-| `assets/img/` | Images, favicons, banners. |
+| `assets/data/` | `products.json` — searchable product catalog for the header search. |
 
 ### What this project does **not** include
 
@@ -104,12 +105,19 @@ Examples: `npx serve .`, Python `python -m http.server 8080`, or IIS/XAMPP point
 
 **Note:** Some links in the header use absolute paths like `/index.html`. On a local server, ensure the site is served from the **root** of that server (or adjust links to relative paths such as `index.html` if you deploy in a subfolder).
 
+### Product search (client-side)
+
+- The header search box loads `assets/js/site-search.js` and reads the catalog **`assets/data/products.json`** (no server database).
+- While typing, a short suggestion list appears; **Enter** or the search icon opens **`search.html?q=…`** with a full grid of matches.
+- Matching is case-insensitive and strips most combining accents so queries like `dep` can match **Dép**.
+- To add or change products, edit **`assets/data/products.json`** (fields: `name`, `price`, `image`, `category`, `categoryUrl`, optional `keywords`, optional `detailUrl`; default detail link is `portfolio-details.html`).
+
 ### 3. Add or change a page
 
 1. Copy an existing page (e.g. `starter-page.html`) or duplicate a category page.
 2. Keep the same `<head>` vendor CSS order as other pages for consistent styling.
 3. Include the same vendor JS at the bottom (`bootstrap.bundle`, `main.js`, etc.) as `index.html` unless you know you can omit a library.
-4. If the page uses the shared header/footer, reuse the same `fetch` pattern used on `index.html`.
+4. If the page uses the shared header/footer, reuse the same `fetch` pattern used on `index.html`, and include **`assets/js/site-search.js`** immediately after **`assets/js/header.js`** so the search box keeps working.
 
 ### 4. Styling
 
@@ -134,18 +142,19 @@ Upload the full folder structure to a host that supports **static files** and, i
 
 ```
 HT_Shop/
-├── index.html              # Home
-├── cuahang.html            # Stores
+├── index.html, search.html   # Home + search results
+├── cuahang.html              # Stores
 ├── introduce.html, log.html
 ├── giay*.html, phuKien.html
-├── partials/               # header.html, footer.html, shared snippets
-├── forms/                  # contact.php, newsletter.php
+├── partials/                 # header.html, footer.html, shared snippets
+├── forms/                    # contact.php, newsletter.php
 ├── assets/
+│   ├── data/products.json    # Search catalog (client-side)
 │   ├── css/
-│   ├── js/
+│   ├── js/                   # header.js, site-search.js, main.js, …
 │   ├── img/
 │   ├── scss/
-│   └── vendor/             # Bootstrap, Swiper, AOS, etc.
+│   └── vendor/               # Bootstrap, Swiper, AOS, etc.
 └── README.md
 ```
 
