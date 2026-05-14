@@ -12,10 +12,18 @@
 
             <!-- Search -->
             <div class="col-12 col-md-6 my-2 my-md-0">
-                <div class="position-relative">
-                    <input type="search" class="form-control rounded-pill ps-4 pe-5" placeholder="Search"
-                        aria-label="Search" />
-                    <i class="bi bi-search position-absolute top-50 end-0 translate-middle-y me-3 text-secondary"></i>
+                <div class="position-relative site-search" id="site-search-wrap">
+                    <label for="site-search-q" class="visually-hidden">Tìm sản phẩm</label>
+                    <input type="search" id="site-search-q" class="form-control rounded-pill ps-4 pe-5"
+                        placeholder="Tìm sản phẩm…" autocomplete="off" spellcheck="false" maxlength="80" />
+                    <button type="button" id="site-search-submit"
+                        class="btn btn-link position-absolute top-50 end-0 translate-middle-y p-0 pe-3 border-0 text-secondary lh-1"
+                        aria-label="Tìm kiếm">
+                        <i class="bi bi-search"></i>
+                    </button>
+                    <div id="site-search-dropdown"
+                        class="d-none position-absolute top-100 start-0 w-100 mt-1 bg-white border rounded-3 shadow-sm overflow-auto site-search-dropdown"
+                        style="z-index: 1080; max-height: 280px"></div>
                 </div>
             </div>
 

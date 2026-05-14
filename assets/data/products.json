@@ -1,0 +1,137 @@
+[
+  {
+    "id": "dep-quai-nhun-8700",
+    "name": "Dép quai nhún đen|kem 8700",
+    "price": "280.000đ",
+    "image": "assets/img/product/SP_Nu/GHT_0157.jpg",
+    "category": "Giày nữ",
+    "categoryUrl": "giayNu.html",
+    "keywords": "dep nu sandal"
+  },
+  {
+    "id": "bup-be-xuong-8683",
+    "name": "Búp Bê Xuồng 7F 8683 Đen|Bò",
+    "price": "330.000đ",
+    "image": "assets/img/product/SP_Nu/GHT_0110.jpg",
+    "category": "Giày nữ",
+    "categoryUrl": "giayNu.html",
+    "keywords": "giay cao got bup be"
+  },
+  {
+    "id": "sandal-nu-quai-manh-5807",
+    "name": "Sandal nữ quai mảnh đen|kem 5807",
+    "price": "190.000đ",
+    "image": "assets/img/product/SP_Nu/IMG_1783.jpg",
+    "category": "Giày nữ",
+    "categoryUrl": "giayNu.html",
+    "keywords": "sandal dep"
+  },
+  {
+    "id": "sporty-boot-8339",
+    "name": "Sporty Boot Đế Cao 5F 8339",
+    "price": "390.000đ",
+    "image": "assets/img/product/SP_Nu/sportyboot.jpg",
+    "category": "Giày nữ",
+    "categoryUrl": "giayNu.html",
+    "keywords": "boot sneaker the thao"
+  },
+  {
+    "id": "dep-yl-8626",
+    "name": "Dép Yl-8626",
+    "price": "200.000đ",
+    "image": "assets/img/product/SP_Nam/GHT_0674.jpg",
+    "category": "Giày nam",
+    "categoryUrl": "giayNam.html",
+    "keywords": "dep nam quai ngang"
+  },
+  {
+    "id": "tay-xo-ne-8616",
+    "name": "Tây Xỏ Ne-8616",
+    "price": "500.000đ",
+    "image": "assets/img/product/SP_Nam/GHT_0656.jpg",
+    "category": "Giày nam",
+    "categoryUrl": "giayNam.html",
+    "keywords": "giay tay cong so loafer"
+  },
+  {
+    "id": "dep-gd-8607",
+    "name": "Dép Gd-8607",
+    "price": "450.000đ",
+    "image": "assets/img/product/SP_Nam/GHT_0686.jpg",
+    "category": "Giày nam",
+    "categoryUrl": "giayNam.html",
+    "keywords": "dep quai h"
+  },
+  {
+    "id": "cao-ka-8602",
+    "name": "Cao Ka-8602",
+    "price": "700.000đ",
+    "image": "assets/img/product/SP_Nam/GHT_0751.jpg",
+    "category": "Giày nam",
+    "categoryUrl": "giayNam.html",
+    "keywords": "giay slip on"
+  },
+  {
+    "id": "kep-yl-8625",
+    "name": "Kẹp Yl-8625",
+    "price": "250.000đ",
+    "image": "assets/img/product/SP_Nam/GHT_0704.jpg",
+    "category": "Giày nam",
+    "categoryUrl": "giayNam.html",
+    "keywords": "dep kep tong"
+  },
+  {
+    "id": "dep-ac-8490",
+    "name": "Dép Ac-8490",
+    "price": "350.000đ",
+    "image": "assets/img/product/SP_Nam/GHT_0733.jpg",
+    "category": "Giày nam",
+    "categoryUrl": "giayNam.html",
+    "keywords": "dep nam"
+  },
+  {
+    "id": "couple-sporty-8585-nam",
+    "name": "Couple Sporty Sandal 8585 Nam",
+    "price": "300.000đ",
+    "image": "assets/img/product/SP_Nam/GHT_0645.jpg",
+    "category": "Giày nam",
+    "categoryUrl": "giayNam.html",
+    "keywords": "sandal doi the thao"
+  },
+  {
+    "id": "dep-kh-7380",
+    "name": "DÉP KH-7380",
+    "price": "260.000 đ",
+    "image": "assets/img/product/SP_Nam/GHT_0674.jpg",
+    "category": "Sale",
+    "categoryUrl": "giaySales.html",
+    "keywords": "sale khuyen mai giam gia"
+  },
+  {
+    "id": "sandal-dinh-da-8363",
+    "name": "Sandal đính đá Gót Pha Lê Cao 7F 8363 Đen|Bạc",
+    "price": "370.000đ",
+    "image": "assets/img/product/SP_Nu/1.jpg",
+    "category": "Bán chạy",
+    "categoryUrl": "index.html",
+    "keywords": "sandal nu cao got da"
+  },
+  {
+    "id": "dep-mules-8662",
+    "name": "Dép mules mềm cao 4F 8662",
+    "price": "390.000đ",
+    "image": "assets/img/product/SP_Nu/GHT_0179.jpg",
+    "category": "Bán chạy",
+    "categoryUrl": "index.html",
+    "keywords": "mules dep nu"
+  },
+  {
+    "id": "sandal-de-bang-8189",
+    "name": "Sandal Đế bằng dây đan Màu kem 8189",
+    "price": "250.000đ",
+    "image": "assets/img/product/SP_Nu/471.jpg",
+    "category": "Bán chạy",
+    "categoryUrl": "index.html",
+    "keywords": "sandal kem day dan"
+  }
+]
