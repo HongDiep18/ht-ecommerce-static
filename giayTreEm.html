@@ -1,8 +1,8 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="vi">
 
 <head>
-    <meta charset="UTF-8">
+    <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Giày trẻ em</title>
 
@@ -32,18 +32,15 @@
     <!-- Main CSS File -->
     <link href="assets/css/main.css" rel="stylesheet">
     <link rel="stylesheet" href="assets/css/cuahang.css">
+    <script src="assets/js/includes.js"></script>
 </head>
 
 <body class="index-page">
-    <!-- 1. Header -->
+    <!-- ========== Site header (partial) ========== -->
     <header id="header" class="header sticky-top py-2 bg-white border-bottom"></header>
-    <script>
-        fetch('partials/header.html')
-            .then(res => res.text())
-            .then(data => document.getElementById('header').innerHTML = data)
-    </script>
+    <script>HTShop.loadHeader();</script>
 
-
+    <!-- ========== Page: kids’ shoes ========== -->
 
 
     <!-- 2. Navigation -->
@@ -286,25 +283,13 @@
         };
     </script>
 
-    <!-- -- Layout chung -->
+    <!-- ========== Shared Nam/Nữ layout (partial) ========== -->
     <div id="layoutCommon"></div>
+    <script>HTShop.loadLayoutCommon();</script>
 
-    <script>
-        fetch('/partials/commonNamNu.html')
-            .then(res => res.text())
-            .then(data => document.getElementById('layoutCommon').innerHTML = data)
-    </script>
-
-
-
-    <!-- 11. Footer -->
-    <footer id="footer" class="bg-light pt-4 border-top mt-4"> </footer>
-
-    <script>
-        fetch('partials/footer.html')
-            .then(res => res.text())
-            .then(data => document.getElementById('footer').innerHTML = data)
-    </script>
+    <!-- ========== Site footer (partial) ========== -->
+    <footer id="footer" class="bg-light pt-4 border-top mt-4"></footer>
+    <script>HTShop.loadFooter();</script>
 
     <!-- Scroll Top -->
     <a href="#" id="scroll-top" class="scroll-top d-flex align-items-center justify-content-center"><i
