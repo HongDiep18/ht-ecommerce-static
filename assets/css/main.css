@@ -1,4 +1,6 @@
 
+@import url("ht-theme.css");
+
 /*--------------------------------------------------------------
 # Font & Color Variables
 # Help: https://bootstrapmade.com/color-system/
@@ -63,9 +65,9 @@
 }
 
 /* ----------------------------HD---------------------------------- */
-/* hiệu ứng click navigation*/
+/* hiệu ứng click navigation — see ht-theme.css for brand active state */
 .nav-link.active {
-  color: red !important;
+  color: var(--ht-primary, #b91c1c) !important;
 }
 
 
@@ -2302,6 +2304,6 @@ section,
   border-bottom: 0 !important;
 }
 
-.site-search-dropdown .site-search-item:hover {
-  background-color: #f8f9fa;
-}
+
+/*--------------------------------------------------------------
+# Font & Color Variables
