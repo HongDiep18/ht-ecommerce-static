@@ -137,11 +137,13 @@
 
         renderProduct(product);
         renderRelated(product, catalog);
+        document.dispatchEvent(new CustomEvent('ht-product-loaded', { detail: product }));
       })
       .catch(function () {
         if (fallbackProduct) {
           renderProduct(fallbackProduct);
           renderRelated(fallbackProduct, []);
+          document.dispatchEvent(new CustomEvent('ht-product-loaded', { detail: fallbackProduct }));
         } else {
           renderNotFound(host);
         }

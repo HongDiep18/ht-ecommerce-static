@@ -4,7 +4,7 @@
  * - homepage slider cards: .product-list .card
  * - shop/category cards: .product-card (+ .buy-btn)
  */
-(function () {
+(function (global) {
   'use strict';
 
   function textFrom(el) {
@@ -38,7 +38,9 @@
   function extractProduct(card) {
     if (!card) return null;
 
-    var name = textFrom(card.querySelector('.product-name')) || textFrom(card.querySelector('.card-title'));
+    var name = textFrom(card.querySelector('.product-name'))
+      || textFrom(card.querySelector('.card-title'))
+      || textFrom(card.querySelector('p.card-title'));
     if (!name) return null;
 
     var price = textFrom(card.querySelector('.product-info .text-danger'))
@@ -99,10 +101,10 @@
         return;
       }
 
-      var card = e.target.closest('.product-list .card, .products-wrapper .product-card');
+      var card = e.target.closest('.product-list .card, .products-wrapper .product-card, #site-search-page-results a.card');
       if (!card) return;
 
-      if (e.target.closest('a, button, input, textarea, select, .carousel-control-prev, .carousel-control-next')) {
+      if (e.target.closest('a, button, input, textarea, select, .carousel-control-prev, .carousel-control-next, .ht-action-btn, .ht-card-actions')) {
         return;
       }
 
@@ -110,5 +112,7 @@
     });
   }
 
+  global.extractProductForEngagement = extractProduct;
+
   document.addEventListener('DOMContentLoaded', init);
-})();
+})(window);

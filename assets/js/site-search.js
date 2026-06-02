@@ -229,6 +229,7 @@
           );
         })
         .join('');
+      document.dispatchEvent(new CustomEvent('ht-cards-updated'));
     });
   }
 

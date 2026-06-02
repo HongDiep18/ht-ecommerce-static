@@ -45,7 +45,7 @@
 
       <div class="row g-4 align-items-start">
         <div class="col-md-6">
-          <div class="card border-0 shadow-sm">
+          <div class="card border-0 shadow-sm position-relative">
             <img id="product-detail-image" src="assets/img/product/SP_Nu/1.jpg" alt="Sản phẩm" class="img-fluid rounded-3"
               style="max-height: 560px; object-fit: contain; background:#fff;">
           </div>
@@ -54,16 +54,38 @@
         <div class="col-md-6">
           <span class="badge bg-success-subtle text-success-emphasis mb-2" id="product-detail-category">Sản phẩm</span>
           <h1 class="h3 mb-3" id="product-detail-name">Chi tiết sản phẩm</h1>
+          <div class="mb-2" id="ht-reviews-summary"></div>
           <p class="h4 text-danger fw-bold mb-3" id="product-detail-price">Liên hệ</p>
           <p class="text-muted mb-4" id="product-detail-meta"></p>
 
           <div class="d-flex flex-wrap gap-2 mb-3">
-            <button class="btn btn-danger px-4">
+            <button type="button" class="btn btn-outline-danger px-3" id="ht-detail-wishlist">
+              <i class="bi bi-heart me-1"></i>Yêu thích
+            </button>
+            <button type="button" class="btn btn-outline-secondary px-3" id="ht-detail-compare">
+              <i class="bi bi-sliders me-1"></i>So sánh
+            </button>
+            <button type="button" class="btn btn-danger px-4">
               <i class="fa-solid fa-cart-plus me-2"></i>Thêm vào giỏ
             </button>
             <a class="btn btn-outline-secondary px-4" id="product-detail-back-link" href="cuahang.html">
               Quay lại danh mục
             </a>
+          </div>
+
+          <div class="card border-0 shadow-sm mb-3">
+            <div class="card-body">
+              <h2 class="h6 mb-2"><i class="bi bi-bell me-1"></i>Thông báo khi có hàng</h2>
+              <p class="small text-muted mb-2">Đăng ký email để nhận tin khi sản phẩm có lại size / màu.</p>
+              <form id="ht-stock-alert-form" class="row g-2">
+                <div class="col-md-7">
+                  <input type="email" class="form-control form-control-sm" name="email" placeholder="Email của bạn" required>
+                </div>
+                <div class="col-md-5">
+                  <button type="submit" class="btn btn-sm btn-danger w-100">Đăng ký nhận tin</button>
+                </div>
+              </form>
+            </div>
           </div>
 
           <div class="card border-0 shadow-sm">
@@ -75,6 +97,44 @@
               </p>
             </div>
           </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="container pb-4">
+      <h2 class="h5 mb-3">Đánh giá &amp; nhận xét</h2>
+      <div class="row g-4">
+        <div class="col-lg-5">
+          <div class="card border-0 shadow-sm">
+            <div class="card-body">
+              <h3 class="h6 mb-3">Viết đánh giá</h3>
+              <form id="ht-review-form">
+                <div class="mb-2">
+                  <label class="form-label small">Số sao</label>
+                  <div class="d-flex gap-1 mb-1" data-star-input>
+                    <button type="button" class="btn btn-sm btn-link p-0" data-star="1" aria-label="1 sao"><i class="bi bi-star text-muted"></i></button>
+                    <button type="button" class="btn btn-sm btn-link p-0" data-star="2" aria-label="2 sao"><i class="bi bi-star text-muted"></i></button>
+                    <button type="button" class="btn btn-sm btn-link p-0" data-star="3" aria-label="3 sao"><i class="bi bi-star text-muted"></i></button>
+                    <button type="button" class="btn btn-sm btn-link p-0" data-star="4" aria-label="4 sao"><i class="bi bi-star text-muted"></i></button>
+                    <button type="button" class="btn btn-sm btn-link p-0" data-star="5" aria-label="5 sao"><i class="bi bi-star-fill text-warning"></i></button>
+                  </div>
+                  <input type="hidden" name="rating" value="5">
+                </div>
+                <div class="mb-2">
+                  <label class="form-label small">Tên hiển thị</label>
+                  <input type="text" class="form-control form-control-sm" name="name" placeholder="Tên của bạn">
+                </div>
+                <div class="mb-2">
+                  <label class="form-label small">Nội dung</label>
+                  <textarea class="form-control form-control-sm" name="comment" rows="3" required placeholder="Chia sẻ trải nghiệm..."></textarea>
+                </div>
+                <button type="submit" class="btn btn-sm btn-danger">Gửi đánh giá</button>
+              </form>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-7">
+          <div id="ht-reviews-list"></div>
         </div>
       </div>
     </section>
@@ -102,6 +162,7 @@
 
   <script src="assets/js/header.js"></script>
   <script src="assets/js/site-search.js"></script>
+  <script src="assets/js/engagement.js"></script>
   <script src="assets/js/product-detail.js"></script>
   <script src="assets/js/main.js"></script>
 </body>
