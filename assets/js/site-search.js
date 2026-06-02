@@ -5,7 +5,6 @@
 (function () {
   'use strict';
 
-  var DATA_PATH = 'assets/data/products.json';
   var catalog = null;
   var loadPromise = null;
 
@@ -26,11 +25,15 @@
   function loadCatalog() {
     if (catalog) return Promise.resolve(catalog);
     if (loadPromise) return loadPromise;
-    loadPromise = fetch(DATA_PATH)
-      .then(function (r) {
-        if (!r.ok) throw new Error('catalog');
-        return r.json();
-      })
+    if (window.HTCatalog) {
+      loadPromise = HTCatalog.loadCatalog().then(function (data) {
+        catalog = data;
+        return catalog;
+      });
+      return loadPromise;
+    }
+    loadPromise = fetch('assets/data/products.json')
+      .then(function (r) { return r.ok ? r.json() : []; })
       .then(function (data) {
         catalog = Array.isArray(data) ? data : [];
         return catalog;
@@ -74,7 +77,7 @@
     var html = items
       .slice(0, 8)
       .map(function (p) {
-        var url = p.detailUrl || ('product-detail.html?id=' + encodeURIComponent(p.id || ''));
+        var url = (window.HTCatalog && HTCatalog.detailUrl) ? HTCatalog.detailUrl(p) : ('product-detail.html?id=' + encodeURIComponent(p.id || ''));
         return (
           '<a class="d-flex align-items-center gap-2 px-3 py-2 text-decoration-none text-dark border-bottom site-search-item" href="' +
           url +
@@ -207,7 +210,7 @@
       }
       container.innerHTML = items
         .map(function (p) {
-          var url = p.detailUrl || ('product-detail.html?id=' + encodeURIComponent(p.id || ''));
+          var url = (window.HTCatalog && HTCatalog.detailUrl) ? HTCatalog.detailUrl(p) : ('product-detail.html?id=' + encodeURIComponent(p.id || ''));
           return (
             '<div class="col-6 col-md-4 col-lg-3 mb-4">' +
             '<a class="card h-100 text-decoration-none text-dark shadow-sm" href="' +
