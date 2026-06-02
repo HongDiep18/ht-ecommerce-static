@@ -74,7 +74,7 @@
     var html = items
       .slice(0, 8)
       .map(function (p) {
-        var url = p.detailUrl || 'portfolio-details.html';
+        var url = p.detailUrl || ('product-detail.html?id=' + encodeURIComponent(p.id || ''));
         return (
           '<a class="d-flex align-items-center gap-2 px-3 py-2 text-decoration-none text-dark border-bottom site-search-item" href="' +
           url +
@@ -207,7 +207,7 @@
       }
       container.innerHTML = items
         .map(function (p) {
-          var url = p.detailUrl || 'portfolio-details.html';
+          var url = p.detailUrl || ('product-detail.html?id=' + encodeURIComponent(p.id || ''));
           return (
             '<div class="col-6 col-md-4 col-lg-3 mb-4">' +
             '<a class="card h-100 text-decoration-none text-dark shadow-sm" href="' +
@@ -229,6 +229,7 @@
           );
         })
         .join('');
+      document.dispatchEvent(new CustomEvent('ht-cards-updated'));
     });
   }
 

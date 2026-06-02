@@ -533,3 +533,109 @@ a.hover-nav:hover,
     padding-right: 0.75rem !important;
   }
 }
+
+/*--------------------------------------------------------------
+# Engagement (account, wishlist, compare, reviews)
+--------------------------------------------------------------*/
+.ht-badge {
+  position: absolute;
+  top: -6px;
+  right: -8px;
+  min-width: 18px;
+  height: 18px;
+  padding: 0 5px;
+  font-size: 0.65rem;
+  font-weight: 700;
+  line-height: 18px;
+  text-align: center;
+  color: #fff;
+  background: var(--ht-primary);
+  border-radius: var(--ht-radius-pill);
+}
+
+.ht-header-tools a {
+  text-decoration: none;
+}
+
+.ht-card-actions {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  z-index: 5;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.ht-card-actions .btn {
+  width: 34px;
+  height: 34px;
+  padding: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
+}
+
+.ht-card-actions .btn:hover {
+  background: #fff;
+  color: var(--ht-primary);
+}
+
+.ht-card-actions .bi-heart-fill {
+  color: var(--ht-primary);
+}
+
+.ht-toast {
+  position: fixed;
+  bottom: 4.5rem;
+  right: 1.25rem;
+  z-index: 1100;
+  max-width: min(320px, calc(100vw - 2rem));
+  padding: 0.75rem 1rem;
+  border-radius: 10px;
+  background: #1f2937;
+  color: #fff;
+  font-size: 0.875rem;
+  box-shadow: var(--ht-shadow);
+  opacity: 0;
+  transform: translateY(12px);
+  transition: opacity 0.25s, transform 0.25s;
+  pointer-events: none;
+}
+
+.ht-toast--show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.ht-toast--success {
+  background: #15803d;
+}
+
+.ht-toast--warning {
+  background: #b45309;
+}
+
+.ht-toast--info {
+  background: #1f2937;
+}
+
+.ht-rating-avg {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #111827;
+  margin-right: 0.35rem;
+}
+
+.ht-compare-table th {
+  background: #f9fafb;
+  font-weight: 600;
+}
+
+#ht-detail-wishlist.active,
+#ht-detail-compare.active {
+  border-color: var(--ht-primary);
+  color: var(--ht-primary);
+  background: #fef2f2;
+}
