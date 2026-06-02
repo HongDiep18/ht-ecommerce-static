@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tài khoản — Hồng Thạnh</title>
+  <link href="assets/img/favicon.png" rel="icon">
+  <link href="https://fonts.googleapis.com" rel="preconnect">
+  <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&family=Nunito:wght@600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer">
+  <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+  <link href="assets/css/main.css" rel="stylesheet">
+  <script src="assets/js/includes.js"></script>
+</head>
+
+<body class="index-page">
+  <header id="header" class="header sticky-top py-2 bg-white border-bottom"></header>
+  <script>HTShop.loadHeader();</script>
+
+  <main class="main" id="account-page">
+    <div class="container py-5" style="max-width: 720px;">
+      <h1 class="h3 mb-4">Tài khoản</h1>
+
+      <div id="account-guest">
+        <ul class="nav nav-tabs mb-4" role="tablist">
+          <li class="nav-item"><button class="nav-link active" data-bs-toggle="tab" data-bs-target="#tab-login" type="button">Đăng nhập</button></li>
+          <li class="nav-item"><button class="nav-link" data-bs-toggle="tab" data-bs-target="#tab-register" type="button">Đăng ký</button></li>
+        </ul>
+        <div class="tab-content">
+          <div class="tab-pane fade show active" id="tab-login">
+            <div class="card border-0 shadow-sm">
+              <div class="card-body">
+                <form id="ht-login-form">
+                  <div class="mb-3">
+                    <label class="form-label">Email</label>
+                    <input type="email" class="form-control" name="email" required>
+                  </div>
+                  <div class="mb-3">
+                    <label class="form-label">Mật khẩu</label>
+                    <input type="password" class="form-control" name="password" minlength="4" required>
+                  </div>
+                  <button type="submit" class="btn btn-danger w-100">Đăng nhập</button>
+                </form>
+                <p class="small text-muted mt-3 mb-0">Demo: đăng ký trước, sau đó đăng nhập bằng email đã đăng ký (mật khẩu tối thiểu 4 ký tự).</p>
+              </div>
+            </div>
+          </div>
+          <div class="tab-pane fade" id="tab-register">
+            <div class="card border-0 shadow-sm">
+              <div class="card-body">
+                <form id="ht-register-form">
+                  <div class="mb-3">
+                    <label class="form-label">Họ tên</label>
+                    <input type="text" class="form-control" name="name" required>
+                  </div>
+                  <div class="mb-3">
+                    <label class="form-label">Email</label>
+                    <input type="email" class="form-control" name="email" required>
+                  </div>
+                  <div class="mb-3">
+                    <label class="form-label">Số điện thoại</label>
+                    <input type="tel" class="form-control" name="phone">
+                  </div>
+                  <button type="submit" class="btn btn-danger w-100">Tạo tài khoản</button>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div id="account-user" class="d-none">
+        <div class="card border-0 shadow-sm mb-4">
+          <div class="card-body">
+            <h2 class="h5 mb-1">Xin chào, <span id="account-user-name"></span></h2>
+            <p class="text-muted mb-3" id="account-user-email"></p>
+            <div class="d-flex flex-wrap gap-2">
+              <a href="wishlist.html" class="btn btn-outline-danger btn-sm"><i class="bi bi-heart me-1"></i>Yêu thích</a>
+              <a href="compare.html" class="btn btn-outline-secondary btn-sm"><i class="bi bi-sliders me-1"></i>So sánh</a>
+              <button type="button" class="btn btn-outline-dark btn-sm" id="ht-logout-btn">Đăng xuất</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="card border-0 shadow-sm">
+          <div class="card-body">
+            <h2 class="h6 mb-3"><i class="bi bi-bell me-1"></i>Cài đặt thông báo</h2>
+            <form id="ht-notif-form">
+              <div class="form-check mb-3">
+                <input class="form-check-input" type="checkbox" id="ht-promo-email">
+                <label class="form-check-label" for="ht-promo-email">Nhận email khuyến mãi &amp; ưu đãi từ Hồng Thạnh</label>
+              </div>
+              <div class="mb-3">
+                <label class="form-label small">Email nhận tin</label>
+                <input type="email" class="form-control form-control-sm" name="email" placeholder="email@example.com">
+              </div>
+              <button type="submit" class="btn btn-sm btn-danger">Lưu cài đặt</button>
+            </form>
+            <p class="small text-muted mt-3 mb-0">Thông báo <strong>có hàng lại</strong> đăng ký tại trang chi tiết từng sản phẩm.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer id="footer" class="bg-light pt-4 border-top mt-4"></footer>
+  <script>HTShop.loadFooter();</script>
+  <a href="#" id="scroll-top" class="scroll-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+
+  <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="assets/js/header.js"></script>
+  <script src="assets/js/site-search.js"></script>
+  <script src="assets/js/engagement.js"></script>
+  <script src="assets/js/main.js"></script>
+</body>
+
+</html>
