@@ -1,0 +1,56 @@
+<section class="shop-page container-md py-4" style="max-width: 1250px;" data-catalog-root>
+    <div class="d-flex flex-wrap justify-content-between align-items-center gap-2 mb-3">
+        <h4 class="mb-0" id="catalog-page-title">Sản phẩm</h4>
+        <div class="view-toggle">
+            <button type="button" class="btn btn-outline-secondary btn-sm active" data-catalog-view="grid">
+                <i class="bi bi-grid"></i> Lưới
+            </button>
+            <button type="button" class="btn btn-outline-secondary btn-sm" data-catalog-view="list">
+                <i class="bi bi-list"></i> Dòng
+            </button>
+        </div>
+    </div>
+
+    <div class="card border-0 shadow-sm mb-3 catalog-filters">
+        <div class="card-body py-3">
+            <div class="row g-2 align-items-end">
+                <div class="col-6 col-md-3 col-lg-2">
+                    <label class="form-label small mb-1">Sắp xếp</label>
+                    <select class="form-select form-select-sm" id="catalog-sort">
+                        <option value="newest">Mới nhất</option>
+                        <option value="price-asc">Giá tăng dần</option>
+                        <option value="price-desc">Giá giảm dần</option>
+                        <option value="name">Tên A-Z</option>
+                    </select>
+                </div>
+                <div class="col-6 col-md-3 col-lg-2">
+                    <label class="form-label small mb-1">Thương hiệu</label>
+                    <select class="form-select form-select-sm" id="catalog-brand">
+                        <option value="">Tất cả</option>
+                    </select>
+                </div>
+                <div class="col-6 col-md-3 col-lg-2">
+                    <label class="form-label small mb-1">Size</label>
+                    <select class="form-select form-select-sm" id="catalog-size">
+                        <option value="">Tất cả</option>
+                    </select>
+                </div>
+                <div class="col-6 col-md-3 col-lg-2">
+                    <label class="form-label small mb-1">Giá từ (đ)</label>
+                    <input type="number" class="form-control form-control-sm" id="catalog-price-min" placeholder="0" min="0" step="10000">
+                </div>
+                <div class="col-6 col-md-3 col-lg-2">
+                    <label class="form-label small mb-1">Giá đến (đ)</label>
+                    <input type="number" class="form-control form-control-sm" id="catalog-price-max" placeholder="1000000" min="0" step="10000">
+                </div>
+                <div class="col-12 col-lg-2">
+                    <button type="button" class="btn btn-sm btn-outline-secondary w-100" id="catalog-reset">Xóa bộ lọc</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <p class="text-muted small mb-2" id="catalog-result-count"></p>
+    <div class="row products-wrapper" id="catalog-grid"></div>
+    <nav class="mt-4" id="catalog-pagination" aria-label="Phân trang sản phẩm"></nav>
+</section>
