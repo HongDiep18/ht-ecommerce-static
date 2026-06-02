@@ -78,6 +78,11 @@
   }
 
   function openDetailFromCard(card) {
+    var catalogId = card.getAttribute('data-product-id');
+    if (catalogId) {
+      window.location.href = 'product-detail.html?id=' + encodeURIComponent(catalogId);
+      return;
+    }
     var product = extractProduct(card);
     if (!product) return;
     window.location.href = detailUrl(product);

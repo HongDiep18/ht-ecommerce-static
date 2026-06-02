@@ -2,136 +2,272 @@
   {
     "id": "dep-quai-nhun-8700",
     "name": "Dép quai nhún đen|kem 8700",
-    "price": "280.000đ",
-    "image": "assets/img/product/SP_Nu/GHT_0157.jpg",
+    "brand": "Hồng Thạnh",
     "category": "Giày nữ",
     "categoryUrl": "giayNu.html",
-    "keywords": "dep nu sandal"
+    "keywords": "dep nu sandal",
+    "image": "assets/img/product/SP_Nu/GHT_0157.jpg",
+    "imageHover": "assets/img/product/SP_Nu/GHT_0151.jpg",
+    "variants": [
+      { "sku": "8700-36-den", "size": "36", "color": "Đen", "colorHex": "#111111", "price": "280.000đ", "priceNumber": 280000, "stock": 5 },
+      { "sku": "8700-37-den", "size": "37", "color": "Đen", "colorHex": "#111111", "price": "280.000đ", "priceNumber": 280000, "stock": 8 },
+      { "sku": "8700-38-kem", "size": "38", "color": "Kem", "colorHex": "#e8dcc8", "price": "280.000đ", "priceNumber": 280000, "stock": 4 }
+    ]
   },
   {
     "id": "bup-be-xuong-8683",
     "name": "Búp Bê Xuồng 7F 8683 Đen|Bò",
-    "price": "330.000đ",
-    "image": "assets/img/product/SP_Nu/GHT_0110.jpg",
+    "brand": "Hồng Thạnh",
     "category": "Giày nữ",
     "categoryUrl": "giayNu.html",
-    "keywords": "giay cao got bup be"
+    "keywords": "giay cao got bup be",
+    "image": "assets/img/product/SP_Nu/GHT_0110.jpg",
+    "imageHover": "assets/img/product/SP_Nu/GHT_0105.jpg",
+    "variants": [
+      { "sku": "8683-37-den", "size": "37", "color": "Đen", "colorHex": "#111111", "price": "330.000đ", "priceNumber": 330000, "stock": 6 },
+      { "sku": "8683-38-bo", "size": "38", "color": "Bò", "colorHex": "#8b5a2b", "price": "330.000đ", "priceNumber": 330000, "stock": 3 }
+    ]
   },
   {
     "id": "sandal-nu-quai-manh-5807",
     "name": "Sandal nữ quai mảnh đen|kem 5807",
-    "price": "190.000đ",
-    "image": "assets/img/product/SP_Nu/IMG_1783.jpg",
+    "brand": "Hồng Thạnh",
     "category": "Giày nữ",
     "categoryUrl": "giayNu.html",
-    "keywords": "sandal dep"
+    "keywords": "sandal dep",
+    "image": "assets/img/product/SP_Nu/IMG_1783.jpg",
+    "imageHover": "assets/img/product/SP_Nu/IMG_1778.jpg",
+    "variants": [
+      { "sku": "5807-36", "size": "36", "color": "Đen", "colorHex": "#111111", "price": "190.000đ", "priceNumber": 190000, "stock": 10 },
+      { "sku": "5807-37", "size": "37", "color": "Kem", "colorHex": "#f5f0e6", "price": "190.000đ", "priceNumber": 190000, "stock": 7 }
+    ]
   },
   {
     "id": "sporty-boot-8339",
     "name": "Sporty Boot Đế Cao 5F 8339",
-    "price": "390.000đ",
-    "image": "assets/img/product/SP_Nu/sportyboot.jpg",
+    "brand": "Hồng Thạnh Premium",
     "category": "Giày nữ",
     "categoryUrl": "giayNu.html",
-    "keywords": "boot sneaker the thao"
+    "keywords": "boot sneaker",
+    "image": "assets/img/product/SP_Nu/sportyboot.jpg",
+    "imageHover": "assets/img/product/SP_Nu/sportyboot.jpg",
+    "variants": [
+      { "sku": "8339-37", "size": "37", "color": "Đen", "colorHex": "#111111", "price": "390.000đ", "priceNumber": 390000, "stock": 4 },
+      { "sku": "8339-38", "size": "38", "color": "Đen", "colorHex": "#111111", "price": "390.000đ", "priceNumber": 390000, "stock": 2 }
+    ]
   },
   {
     "id": "dep-yl-8626",
     "name": "Dép Yl-8626",
-    "price": "200.000đ",
-    "image": "assets/img/product/SP_Nam/GHT_0674.jpg",
+    "brand": "Hồng Thạnh",
     "category": "Giày nam",
     "categoryUrl": "giayNam.html",
-    "keywords": "dep nam quai ngang"
+    "keywords": "dep nam",
+    "image": "assets/img/product/SP_Nam/GHT_0674.jpg",
+    "imageHover": "assets/img/product/SP_Nam/GHT_0675.jpg",
+    "variants": [
+      { "sku": "8626-39", "size": "39", "color": "Đen", "colorHex": "#111111", "price": "200.000đ", "priceNumber": 200000, "stock": 12 },
+      { "sku": "8626-40", "size": "40", "color": "Đen", "colorHex": "#111111", "price": "200.000đ", "priceNumber": 200000, "stock": 9 },
+      { "sku": "8626-41", "size": "41", "color": "Nâu", "colorHex": "#5c4033", "price": "200.000đ", "priceNumber": 200000, "stock": 5 }
+    ]
   },
   {
     "id": "tay-xo-ne-8616",
     "name": "Tây Xỏ Ne-8616",
-    "price": "500.000đ",
-    "image": "assets/img/product/SP_Nam/GHT_0656.jpg",
+    "brand": "Hồng Thạnh",
     "category": "Giày nam",
     "categoryUrl": "giayNam.html",
-    "keywords": "giay tay cong so loafer"
+    "keywords": "giay tay loafer",
+    "image": "assets/img/product/SP_Nam/GHT_0656.jpg",
+    "imageHover": "assets/img/product/SP_Nam/GHT_0657.jpg",
+    "variants": [
+      { "sku": "8616-40", "size": "40", "color": "Đen", "colorHex": "#111111", "price": "500.000đ", "priceNumber": 500000, "stock": 3 },
+      { "sku": "8616-41", "size": "41", "color": "Đen", "colorHex": "#111111", "price": "500.000đ", "priceNumber": 500000, "stock": 4 },
+      { "sku": "8616-42", "size": "42", "color": "Nâu", "colorHex": "#6b4423", "price": "520.000đ", "priceNumber": 520000, "stock": 2 }
+    ]
   },
   {
     "id": "dep-gd-8607",
     "name": "Dép Gd-8607",
-    "price": "450.000đ",
-    "image": "assets/img/product/SP_Nam/GHT_0686.jpg",
+    "brand": "Hồng Thạnh",
     "category": "Giày nam",
     "categoryUrl": "giayNam.html",
-    "keywords": "dep quai h"
+    "keywords": "dep quai h",
+    "image": "assets/img/product/SP_Nam/GHT_0686.jpg",
+    "imageHover": "assets/img/product/SP_Nam/GHT_0687.jpg",
+    "variants": [
+      { "sku": "8607-39", "size": "39", "color": "Đen", "colorHex": "#111111", "price": "450.000đ", "priceNumber": 450000, "stock": 6 },
+      { "sku": "8607-40", "size": "40", "color": "Đen", "colorHex": "#111111", "price": "450.000đ", "priceNumber": 450000, "stock": 8 }
+    ]
   },
   {
     "id": "cao-ka-8602",
     "name": "Cao Ka-8602",
-    "price": "700.000đ",
-    "image": "assets/img/product/SP_Nam/GHT_0751.jpg",
+    "brand": "Hồng Thạnh Premium",
     "category": "Giày nam",
     "categoryUrl": "giayNam.html",
-    "keywords": "giay slip on"
+    "keywords": "slip on",
+    "image": "assets/img/product/SP_Nam/GHT_0751.jpg",
+    "imageHover": "assets/img/product/SP_Nam/GHT_0753.jpg",
+    "variants": [
+      { "sku": "8602-40", "size": "40", "color": "Nâu", "colorHex": "#8b6914", "price": "700.000đ", "priceNumber": 700000, "stock": 2 },
+      { "sku": "8602-41", "size": "41", "color": "Nâu", "colorHex": "#8b6914", "price": "700.000đ", "priceNumber": 700000, "stock": 1 }
+    ]
   },
   {
     "id": "kep-yl-8625",
     "name": "Kẹp Yl-8625",
-    "price": "250.000đ",
-    "image": "assets/img/product/SP_Nam/GHT_0704.jpg",
+    "brand": "Hồng Thạnh",
     "category": "Giày nam",
     "categoryUrl": "giayNam.html",
-    "keywords": "dep kep tong"
+    "keywords": "dep kep",
+    "image": "assets/img/product/SP_Nam/GHT_0704.jpg",
+    "imageHover": "assets/img/product/SP_Nam/GHT_0705.jpg",
+    "variants": [
+      { "sku": "8625-39", "size": "39", "color": "Đen", "colorHex": "#111111", "price": "250.000đ", "priceNumber": 250000, "stock": 15 },
+      { "sku": "8625-40", "size": "40", "color": "Đen", "colorHex": "#111111", "price": "250.000đ", "priceNumber": 250000, "stock": 11 }
+    ]
   },
   {
     "id": "dep-ac-8490",
     "name": "Dép Ac-8490",
-    "price": "350.000đ",
-    "image": "assets/img/product/SP_Nam/GHT_0733.jpg",
+    "brand": "Hồng Thạnh",
     "category": "Giày nam",
     "categoryUrl": "giayNam.html",
-    "keywords": "dep nam"
+    "keywords": "dep nam",
+    "image": "assets/img/product/SP_Nam/GHT_0733.jpg",
+    "imageHover": "assets/img/product/SP_Nam/GHT_0734.jpg",
+    "variants": [
+      { "sku": "8490-40", "size": "40", "color": "Đen", "colorHex": "#111111", "price": "350.000đ", "priceNumber": 350000, "stock": 5 },
+      { "sku": "8490-41", "size": "41", "color": "Xám", "colorHex": "#666666", "price": "350.000đ", "priceNumber": 350000, "stock": 4 }
+    ]
   },
   {
     "id": "couple-sporty-8585-nam",
     "name": "Couple Sporty Sandal 8585 Nam",
-    "price": "300.000đ",
-    "image": "assets/img/product/SP_Nam/GHT_0645.jpg",
+    "brand": "Hồng Thạnh",
     "category": "Giày nam",
     "categoryUrl": "giayNam.html",
-    "keywords": "sandal doi the thao"
+    "keywords": "sandal the thao",
+    "image": "assets/img/product/SP_Nam/GHT_0645.jpg",
+    "imageHover": "assets/img/product/SP_Nam/GHT_0646.jpg",
+    "variants": [
+      { "sku": "8585-39", "size": "39", "color": "Đen", "colorHex": "#111111", "price": "300.000đ", "priceNumber": 300000, "stock": 7 },
+      { "sku": "8585-40", "size": "40", "color": "Đen", "colorHex": "#111111", "price": "300.000đ", "priceNumber": 300000, "stock": 6 }
+    ]
   },
   {
     "id": "dep-kh-7380",
     "name": "DÉP KH-7380",
-    "price": "260.000 đ",
-    "image": "assets/img/product/SP_Nam/GHT_0674.jpg",
+    "brand": "Hồng Thạnh",
     "category": "Sale",
     "categoryUrl": "giaySales.html",
-    "keywords": "sale khuyen mai giam gia"
+    "keywords": "sale dep",
+    "salePercent": 18,
+    "image": "assets/img/product/SP_Nam/GHT_0674.jpg",
+    "imageHover": "assets/img/product/SP_Nam/GHT_0675.jpg",
+    "variants": [
+      { "sku": "7380-39", "size": "39", "color": "Đen", "colorHex": "#111111", "price": "260.000đ", "priceNumber": 260000, "stock": 8 },
+      { "sku": "7380-40", "size": "40", "color": "Đen", "colorHex": "#111111", "price": "260.000đ", "priceNumber": 260000, "stock": 6 }
+    ]
   },
   {
     "id": "sandal-dinh-da-8363",
     "name": "Sandal đính đá Gót Pha Lê Cao 7F 8363 Đen|Bạc",
-    "price": "370.000đ",
-    "image": "assets/img/product/SP_Nu/1.jpg",
+    "brand": "Hồng Thạnh Premium",
     "category": "Bán chạy",
     "categoryUrl": "index.html",
-    "keywords": "sandal nu cao got da"
+    "keywords": "sandal cao got",
+    "image": "assets/img/product/SP_Nu/1.jpg",
+    "imageHover": "assets/img/product/SP_Nu/IMG_2750.jpg",
+    "variants": [
+      { "sku": "8363-36", "size": "36", "color": "Đen bạc", "colorHex": "#222222", "price": "370.000đ", "priceNumber": 370000, "stock": 3 },
+      { "sku": "8363-37", "size": "37", "color": "Đen bạc", "colorHex": "#222222", "price": "370.000đ", "priceNumber": 370000, "stock": 5 }
+    ]
   },
   {
     "id": "dep-mules-8662",
     "name": "Dép mules mềm cao 4F 8662",
-    "price": "390.000đ",
-    "image": "assets/img/product/SP_Nu/GHT_0179.jpg",
+    "brand": "Hồng Thạnh",
     "category": "Bán chạy",
     "categoryUrl": "index.html",
-    "keywords": "mules dep nu"
+    "keywords": "mules",
+    "image": "assets/img/product/SP_Nu/GHT_0179.jpg",
+    "imageHover": "assets/img/product/SP_Nu/GHT_0176.jpg",
+    "variants": [
+      { "sku": "8662-37", "size": "37", "color": "Kem", "colorHex": "#f0e6d8", "price": "390.000đ", "priceNumber": 390000, "stock": 4 },
+      { "sku": "8662-38", "size": "38", "color": "Kem", "colorHex": "#f0e6d8", "price": "390.000đ", "priceNumber": 390000, "stock": 2 }
+    ]
   },
   {
     "id": "sandal-de-bang-8189",
     "name": "Sandal Đế bằng dây đan Màu kem 8189",
-    "price": "250.000đ",
-    "image": "assets/img/product/SP_Nu/471.jpg",
+    "brand": "Hồng Thạnh",
     "category": "Bán chạy",
     "categoryUrl": "index.html",
-    "keywords": "sandal kem day dan"
+    "keywords": "sandal kem",
+    "image": "assets/img/product/SP_Nu/471.jpg",
+    "imageHover": "assets/img/product/SP_Nu/IMG_8563.jpg",
+    "variants": [
+      { "sku": "8189-36", "size": "36", "color": "Kem", "colorHex": "#f5f0e6", "price": "250.000đ", "priceNumber": 250000, "stock": 6 },
+      { "sku": "8189-37", "size": "37", "color": "Kem", "colorHex": "#f5f0e6", "price": "250.000đ", "priceNumber": 250000, "stock": 8 }
+    ]
+  },
+  {
+    "id": "tre-em-sandal-001",
+    "name": "Sandal trẻ em HT-201",
+    "brand": "Hồng Thạnh Kids",
+    "category": "Giày trẻ em",
+    "categoryUrl": "giayTreEm.html",
+    "keywords": "tre em sandal",
+    "image": "assets/img/product/SP_Nu/IMG_1783.jpg",
+    "imageHover": "assets/img/product/SP_Nu/IMG_1778.jpg",
+    "variants": [
+      { "sku": "ht201-28", "size": "28", "color": "Hồng", "colorHex": "#e91e8c", "price": "180.000đ", "priceNumber": 180000, "stock": 10 },
+      { "sku": "ht201-30", "size": "30", "color": "Xanh", "colorHex": "#2196f3", "price": "180.000đ", "priceNumber": 180000, "stock": 8 },
+      { "sku": "ht201-32", "size": "32", "color": "Đen", "colorHex": "#111111", "price": "190.000đ", "priceNumber": 190000, "stock": 6 }
+    ]
+  },
+  {
+    "id": "tre-em-sneaker-002",
+    "name": "Sneaker trẻ em HT-305",
+    "brand": "Hồng Thạnh Kids",
+    "category": "Giày trẻ em",
+    "categoryUrl": "giayTreEm.html",
+    "keywords": "tre em sneaker",
+    "image": "assets/img/product/SP_Nam/GHT_0645.jpg",
+    "imageHover": "assets/img/product/SP_Nam/GHT_0646.jpg",
+    "variants": [
+      { "sku": "ht305-30", "size": "30", "color": "Trắng", "colorHex": "#ffffff", "price": "320.000đ", "priceNumber": 320000, "stock": 5 },
+      { "sku": "ht305-32", "size": "32", "color": "Đỏ", "colorHex": "#c62828", "price": "320.000đ", "priceNumber": 320000, "stock": 4 }
+    ]
+  },
+  {
+    "id": "phu-kien-day-giay",
+    "name": "Dây giày cotton cao cấp",
+    "brand": "Hồng Thạnh",
+    "category": "Phụ kiện",
+    "categoryUrl": "phuKien.html",
+    "keywords": "day giay phu kien",
+    "image": "assets/img/product/SP_Nu/1.jpg",
+    "imageHover": "assets/img/product/SP_Nu/1.jpg",
+    "variants": [
+      { "sku": "day-001-den", "size": "Free", "color": "Đen", "colorHex": "#111111", "price": "45.000đ", "priceNumber": 45000, "stock": 50 },
+      { "sku": "day-001-trang", "size": "Free", "color": "Trắng", "colorHex": "#ffffff", "price": "45.000đ", "priceNumber": 45000, "stock": 40 }
+    ]
+  },
+  {
+    "id": "phu-kien-lot-giay",
+    "name": "Miếng lót giày êm chân",
+    "brand": "Hồng Thạnh",
+    "category": "Phụ kiện",
+    "categoryUrl": "phuKien.html",
+    "keywords": "lot giay",
+    "image": "assets/img/product/SP_Nu/GHT_0110.jpg",
+    "imageHover": "assets/img/product/SP_Nu/GHT_0105.jpg",
+    "variants": [
+      { "sku": "lot-36-40", "size": "36-40", "color": "Be", "colorHex": "#d4c4a8", "price": "65.000đ", "priceNumber": 65000, "stock": 30 },
+      { "sku": "lot-41-45", "size": "41-45", "color": "Be", "colorHex": "#d4c4a8", "price": "65.000đ", "priceNumber": 65000, "stock": 25 }
+    ]
   }
 ]

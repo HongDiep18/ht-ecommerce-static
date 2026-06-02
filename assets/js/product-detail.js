@@ -1,13 +1,11 @@
 /**
- * Product detail page renderer.
- * Supports:
- * - ?id=<catalog-id> (preferred, from assets/data/products.json)
- * - fallback params: ?name=&price=&image=&category=&categoryUrl=
+ * Product detail page — loads from HTCatalog with variant selection.
  */
 (function () {
   'use strict';
 
-  var DATA_PATH = 'assets/data/products.json';
+  var currentProduct = null;
+  var selectedVariant = null;
 
   function escapeHtml(str) {
     return String(str || '')
@@ -26,88 +24,156 @@
     }
   }
 
-  function getFallbackProduct(params) {
-    var name = decodeParam(params.get('name'));
-    if (!name) return null;
-    return {
-      id: decodeParam(params.get('id')) || '',
-      name: name,
-      price: decodeParam(params.get('price')) || 'Liên hệ',
-      image: decodeParam(params.get('image')) || 'assets/img/product/SP_Nu/1.jpg',
-      category: decodeParam(params.get('category')) || 'Sản phẩm',
-      categoryUrl: decodeParam(params.get('categoryUrl')) || 'cuahang.html',
-      keywords: decodeParam(params.get('keywords')) || ''
-    };
+  function renderNotFound() {
+    var host = document.getElementById('product-detail-page');
+    if (!host) return;
+    var main = host.querySelector('.container.py-5');
+    if (main) {
+      main.innerHTML =
+        '<div class="alert alert-warning">Không tìm thấy sản phẩm. <a href="cuahang.html">Quay lại cửa hàng</a></div>';
+    }
   }
 
-  function renderNotFound(container) {
-    container.innerHTML =
-      '<div class="col-12">' +
-      '<div class="alert alert-warning mb-0">Không tìm thấy sản phẩm. Vui lòng quay lại <a href="cuahang.html">Cửa hàng</a>.</div>' +
-      '</div>';
+  function renderVariantSelectors(product) {
+    var wrap = document.getElementById('product-detail-variants');
+    if (!wrap) return;
+
+    var sizes = [];
+    var colors = [];
+    product.variants.forEach(function (v) {
+      if (sizes.indexOf(v.size) === -1) sizes.push(v.size);
+      if (!colors.some(function (c) { return c.color === v.color; })) {
+        colors.push({ color: v.color, colorHex: v.colorHex });
+      }
+    });
+
+    var sizeHtml = sizes.map(function (s) {
+      var active = selectedVariant && selectedVariant.size === s ? ' active' : '';
+      var disabled = !product.variants.some(function (v) { return v.size === s && v.stock > 0; });
+      return '<button type="button" class="btn btn-sm btn-outline-secondary ht-variant-size' + active + (disabled ? ' disabled' : '') + '" data-size="' + escapeHtml(s) + '">' + escapeHtml(s) + '</button>';
+    }).join('');
+
+    var colorHtml = colors.map(function (c) {
+      var active = selectedVariant && selectedVariant.color === c.color ? ' active' : '';
+      return '<button type="button" class="btn btn-sm btn-outline-secondary ht-variant-color' + active + '" data-color="' + escapeHtml(c.color) + '" title="' + escapeHtml(c.color) + '"><span style="display:inline-block;width:14px;height:14px;border-radius:50%;background:' + escapeHtml(c.colorHex) + ';border:1px solid #ccc"></span></button>';
+    }).join('');
+
+    wrap.innerHTML =
+      '<div class="mb-3"><label class="form-label small fw-semibold">Chọn size</label><div class="d-flex flex-wrap gap-2">' + sizeHtml + '</div></div>' +
+      '<div class="mb-2"><label class="form-label small fw-semibold">Chọn màu</label><div class="d-flex flex-wrap gap-2">' + colorHtml + '</div></div>' +
+      '<p class="small mb-0" id="product-variant-stock"></p>';
+
+    function pickVariant(size, color) {
+      var v = product.variants.find(function (x) {
+        return x.size === size && x.color === color && x.stock > 0;
+      });
+      if (!v && size) {
+        v = product.variants.find(function (x) { return x.size === size && x.stock > 0; });
+      }
+      if (!v) v = product.variants.find(function (x) { return x.stock > 0; }) || product.variants[0];
+      selectedVariant = v;
+      updatePriceDisplay(product);
+      var stockEl = document.getElementById('product-variant-stock');
+      if (stockEl) {
+        stockEl.textContent = v.stock > 0 ? 'Còn ' + v.stock + ' sản phẩm (SKU: ' + v.sku + ')' : 'Hết hàng — đăng ký nhận tin bên dưới';
+        stockEl.className = 'small mb-0 ' + (v.stock > 0 ? 'text-success' : 'text-danger');
+      }
+      wrap.querySelectorAll('.ht-variant-size').forEach(function (btn) {
+        btn.classList.toggle('active', btn.getAttribute('data-size') === v.size);
+      });
+      wrap.querySelectorAll('.ht-variant-color').forEach(function (btn) {
+        btn.classList.toggle('active', btn.getAttribute('data-color') === v.color);
+      });
+    }
+
+    wrap.querySelectorAll('.ht-variant-size').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        if (btn.classList.contains('disabled')) return;
+        pickVariant(btn.getAttribute('data-size'), selectedVariant ? selectedVariant.color : null);
+      });
+    });
+    wrap.querySelectorAll('.ht-variant-color').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        pickVariant(selectedVariant ? selectedVariant.size : null, btn.getAttribute('data-color'));
+      });
+    });
+
+    var params = new URLSearchParams(window.location.search);
+    var skuParam = decodeParam(params.get('variant'));
+    if (skuParam) {
+      var fromSku = HTCatalog.getVariant(product, skuParam);
+      if (fromSku) selectedVariant = fromSku;
+    }
+    if (!selectedVariant) {
+      selectedVariant = product.variants.find(function (v) { return v.stock > 0; }) || product.variants[0];
+    }
+    pickVariant(selectedVariant.size, selectedVariant.color);
+  }
+
+  function updatePriceDisplay(product) {
+    var priceEl = document.getElementById('product-detail-price');
+    if (priceEl && selectedVariant) {
+      priceEl.textContent = selectedVariant.price;
+    }
+    var metaEl = document.getElementById('product-detail-meta');
+    if (metaEl && product) {
+      metaEl.innerHTML =
+        '<span class="me-3"><strong>Mã:</strong> ' + escapeHtml(product.id) + '</span>' +
+        '<span class="me-3"><strong>SKU:</strong> ' + escapeHtml(selectedVariant ? selectedVariant.sku : '') + '</span>' +
+        '<span><strong>Thương hiệu:</strong> ' + escapeHtml(product.brand || 'Hồng Thạnh') + '</span>';
+    }
   }
 
   function renderProduct(product) {
-    var titleEl = document.getElementById('product-detail-title');
+    currentProduct = product;
     var breadcrumbNameEl = document.getElementById('product-detail-name-breadcrumb');
     var nameEl = document.getElementById('product-detail-name');
     var categoryEl = document.getElementById('product-detail-category');
     var imageEl = document.getElementById('product-detail-image');
-    var priceEl = document.getElementById('product-detail-price');
-    var metaEl = document.getElementById('product-detail-meta');
     var backEl = document.getElementById('product-detail-back-link');
+    var page = document.getElementById('product-detail-page');
 
-    var safeName = product.name || 'Sản phẩm';
-    var safeCategory = product.category || 'Sản phẩm';
-    var safeCategoryUrl = product.categoryUrl || 'cuahang.html';
-    var safePrice = product.price || 'Liên hệ';
-    var safeImage = product.image || 'assets/img/product/SP_Nu/1.jpg';
-
-    document.title = safeName + ' — Hồng Thạnh';
-    if (titleEl) titleEl.textContent = safeName;
-    if (breadcrumbNameEl) breadcrumbNameEl.textContent = safeName;
-    if (nameEl) nameEl.textContent = safeName;
-    if (categoryEl) categoryEl.textContent = safeCategory;
+    document.title = product.name + ' — Hồng Thạnh';
+    if (breadcrumbNameEl) breadcrumbNameEl.textContent = product.name;
+    if (nameEl) nameEl.textContent = product.name;
+    if (categoryEl) categoryEl.textContent = product.category || 'Sản phẩm';
     if (imageEl) {
-      imageEl.src = safeImage;
-      imageEl.alt = safeName;
-    }
-    if (priceEl) priceEl.textContent = safePrice;
-    if (metaEl) {
-      metaEl.innerHTML =
-        '<span class="me-3"><strong>Mã:</strong> ' + escapeHtml(product.id || 'N/A') + '</span>' +
-        '<span><strong>Danh mục:</strong> ' + escapeHtml(safeCategory) + '</span>';
+      imageEl.src = product.image;
+      imageEl.alt = product.name;
     }
     if (backEl) {
-      backEl.href = safeCategoryUrl;
-      backEl.textContent = 'Quay lại ' + safeCategory;
+      backEl.href = product.categoryUrl || 'cuahang.html';
+      backEl.textContent = 'Quay lại ' + (product.category || 'danh mục');
     }
+    if (page) page.dataset.productId = product.id;
+
+    renderVariantSelectors(product);
+    renderRelated(product);
+    document.dispatchEvent(new CustomEvent('ht-product-loaded', { detail: product }));
   }
 
-  function renderRelated(current, catalog) {
+  function renderRelated(product) {
     var wrap = document.getElementById('product-detail-related');
-    if (!wrap || !Array.isArray(catalog)) return;
-
-    var related = catalog.filter(function (p) {
-      return p.id !== current.id && (p.category || '') === (current.category || '');
-    }).slice(0, 4);
-
-    if (!related.length) {
-      wrap.innerHTML = '<p class="text-muted mb-0">Hiện chưa có sản phẩm liên quan.</p>';
-      return;
-    }
-
-    wrap.innerHTML = related.map(function (p) {
-      return (
-        '<div class="col-6 col-md-3">' +
-        '<a class="card h-100 text-decoration-none text-dark shadow-sm" href="product-detail.html?id=' + encodeURIComponent(p.id || '') + '">' +
-        '<img src="' + escapeHtml(p.image || '') + '" class="card-img-top" alt="' + escapeHtml(p.name || '') + '" style="height:180px;object-fit:cover">' +
-        '<div class="card-body">' +
-        '<p class="card-title small fw-semibold mb-1" style="min-height:2.5rem">' + escapeHtml(p.name || '') + '</p>' +
-        '<p class="text-danger fw-bold small mb-0">' + escapeHtml(p.price || 'Liên hệ') + '</p>' +
-        '</div></a></div>'
-      );
-    }).join('');
+    if (!wrap) return;
+    HTCatalog.loadCatalog().then(function (catalog) {
+      var related = catalog.filter(function (p) {
+        return p.id !== product.id && p.category === product.category;
+      }).slice(0, 4);
+      if (!related.length) {
+        wrap.innerHTML = '<p class="text-muted mb-0">Chưa có sản phẩm liên quan.</p>';
+        return;
+      }
+      wrap.innerHTML = related.map(function (p) {
+        return (
+          '<div class="col-6 col-md-3">' +
+          '<a class="card h-100 text-decoration-none text-dark shadow-sm" href="' + HTCatalog.detailUrl(p) + '">' +
+          '<img src="' + escapeHtml(p.image) + '" class="card-img-top" alt="" style="height:180px;object-fit:cover">' +
+          '<div class="card-body"><p class="card-title small fw-semibold mb-1">' + escapeHtml(p.name) + '</p>' +
+          '<p class="text-danger fw-bold small mb-0">' + escapeHtml(p.price) + '</p></div></a></div>'
+        );
+      }).join('');
+      document.dispatchEvent(new CustomEvent('ht-cards-updated'));
+    });
   }
 
   function initProductDetailPage() {
@@ -116,38 +182,15 @@
 
     var params = new URLSearchParams(window.location.search);
     var id = decodeParam(params.get('id'));
-    var fallbackProduct = getFallbackProduct(params);
 
-    fetch(DATA_PATH)
-      .then(function (r) { return r.ok ? r.json() : []; })
-      .then(function (catalog) {
-        catalog = Array.isArray(catalog) ? catalog : [];
-        var product = null;
-        if (id) {
-          product = catalog.find(function (p) { return (p.id || '') === id; }) || null;
-        }
-        if (!product && fallbackProduct) {
-          product = fallbackProduct;
-        }
-
-        if (!product) {
-          renderNotFound(host);
-          return;
-        }
-
-        renderProduct(product);
-        renderRelated(product, catalog);
-        document.dispatchEvent(new CustomEvent('ht-product-loaded', { detail: product }));
-      })
-      .catch(function () {
-        if (fallbackProduct) {
-          renderProduct(fallbackProduct);
-          renderRelated(fallbackProduct, []);
-          document.dispatchEvent(new CustomEvent('ht-product-loaded', { detail: fallbackProduct }));
-        } else {
-          renderNotFound(host);
-        }
-      });
+    HTCatalog.loadCatalog().then(function (catalog) {
+      var product = id ? HTCatalog.getProductById(id) : null;
+      if (!product) {
+        renderNotFound();
+        return;
+      }
+      renderProduct(product);
+    });
   }
 
   document.addEventListener('DOMContentLoaded', initProductDetailPage);

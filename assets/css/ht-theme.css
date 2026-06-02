@@ -639,3 +639,23 @@ a.hover-nav:hover,
   color: var(--ht-primary);
   background: #fef2f2;
 }
+
+/*--------------------------------------------------------------
+# Catalog filters & variants
+--------------------------------------------------------------*/
+.catalog-filters .form-label {
+  color: #6b7280;
+}
+
+.ht-variant-size.active,
+.ht-variant-color.active {
+  border-color: var(--ht-primary) !important;
+  background: #fef2f2 !important;
+  color: var(--ht-primary) !important;
+}
+
+.admin-product-list .list-group-item.active {
+  background: #fef2f2;
+  border-color: var(--ht-primary);
+  color: #111;
+}
