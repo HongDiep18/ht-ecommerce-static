@@ -70,9 +70,19 @@ Across the top, **Hồng Thạnh** (HT) uses the logo on the left, a rounded **s
 | `assets/scss/` | SCSS sources / readme for theme customization (if you compile SCSS locally). |
 | `assets/data/` | `products.json` — searchable product catalog for the header search. |
 
-### What this project does **not** include
+### Backend API (optional)
 
-- No **Node.js** / **npm** / **Vite** / **Webpack** manifest in the repo (no `package.json`).
+| Piece | Path | Notes |
+|--------|------|--------|
+| **Node API** | `backend/` | Express + SQLite — products, auth, cart, orders |
+| **Config** | `assets/js/ht-api-config.js` | Sets `HT_API_BASE` (e.g. `http://localhost:3001`) |
+| **Client** | `assets/js/api-client.js` | `HTApi.*` helpers + JWT / guest session |
+
+See **`backend/README.md`** for install (`npm install`, `npm run seed`, `npm run dev`) and endpoint list. Run the static site and API on two ports (e.g. PHP `8080` + API `3001`).
+
+### What this project does **not** include (yet)
+
+- No payment gateway integration (MoMo, VNPay, etc.).
 - No **React**, **Vue**, **Angular**, or similar SPA framework.
 - No server-side rendering framework; pages are plain HTML unless you add your own stack.
 
@@ -157,12 +167,13 @@ HT_Shop/
 ├── cuahang.html              # Stores
 ├── introduce.html, log.html
 ├── giay*.html, phuKien.html
+├── backend/                  # Node.js REST API (optional)
 ├── partials/                 # header.html, footer.html, shared snippets
 ├── forms/                    # contact.php, newsletter.php
 ├── assets/
-│   ├── data/products.json    # Search catalog (client-side)
+│   ├── data/products.json    # Catalog seed + offline fallback
 │   ├── css/
-│   ├── js/                   # includes.js, header.js, site-search.js, main.js, …
+│   ├── js/                   # catalog-core, api-client, engagement, …
 │   ├── img/
 │   ├── scss/
 │   └── vendor/               # Bootstrap, Swiper, AOS, etc.

@@ -71,6 +71,21 @@
       return read(KEYS.user, null);
     },
     register: function (data) {
+      if (global.HTApi && HTApi.enabled()) {
+        return HTApi.register({
+          name: data.name,
+          email: data.email,
+          password: data.password,
+          phone: data.phone || "",
+        })
+          .then(function (r) {
+            write(KEYS.user, r.user);
+            return { ok: true, user: r.user };
+          })
+          .catch(function (err) {
+            return { ok: false, message: err.message || "Đăng ký thất bại." };
+          });
+      }
       var users = read("ht_users", []);
       if (
         users.some(function (u) {
@@ -92,6 +107,16 @@
       return { ok: true, user: user };
     },
     login: function (email, password) {
+      if (global.HTApi && HTApi.enabled()) {
+        return HTApi.login(email, password)
+          .then(function (r) {
+            write(KEYS.user, r.user);
+            return { ok: true, user: r.user };
+          })
+          .catch(function (err) {
+            return { ok: false, message: err.message || "Đăng nhập thất bại." };
+          });
+      }
       var users = read("ht_users", []);
       var user = users.find(function (u) {
         return u.email === email;
@@ -109,8 +134,24 @@
       return { ok: true, user: user };
     },
     logout: function () {
+      if (global.HTApi && HTApi.enabled()) HTApi.logout();
       localStorage.removeItem(KEYS.user);
       document.dispatchEvent(new CustomEvent("ht-engagement-change"));
+    },
+    syncSessionFromApi: function () {
+      if (!global.HTApi || !HTApi.enabled() || !HTApi.getToken()) {
+        return Promise.resolve(null);
+      }
+      return HTApi.me()
+        .then(function (r) {
+          if (r.user) write(KEYS.user, r.user);
+          return r.user;
+        })
+        .catch(function () {
+          HTApi.logout();
+          localStorage.removeItem(KEYS.user);
+          return null;
+        });
     },
     getWishlist: function () {
       return read(KEYS.wishlist, []);
@@ -532,30 +573,43 @@
     }
     refreshPanels();
 
+    function handleAuthResult(r) {
+      if (r && r.then) {
+        r.then(function (res) {
+          if (res.ok) {
+            toast("Thành công.", "success");
+            refreshPanels();
+          } else toast(res.message, "warning");
+        });
+        return;
+      }
+      if (r.ok) {
+        toast("Thành công.", "success");
+        refreshPanels();
+      } else toast(r.message, "warning");
+    }
+
+    store.syncSessionFromApi().then(refreshPanels);
+
     if (loginForm) {
       loginForm.addEventListener("submit", function (e) {
         e.preventDefault();
         var fd = new FormData(loginForm);
-        var r = store.login(fd.get("email"), fd.get("password"));
-        if (r.ok) {
-          toast("Đăng nhập thành công.", "success");
-          refreshPanels();
-        } else toast(r.message, "warning");
+        handleAuthResult(store.login(fd.get("email"), fd.get("password")));
       });
     }
     if (registerForm) {
       registerForm.addEventListener("submit", function (e) {
         e.preventDefault();
         var fd = new FormData(registerForm);
-        var r = store.register({
-          name: fd.get("name"),
-          email: fd.get("email"),
-          phone: fd.get("phone"),
-        });
-        if (r.ok) {
-          toast("Đăng ký thành công.", "success");
-          refreshPanels();
-        } else toast(r.message, "warning");
+        handleAuthResult(
+          store.register({
+            name: fd.get("name"),
+            email: fd.get("email"),
+            phone: fd.get("phone"),
+            password: fd.get("password"),
+          }),
+        );
       });
     }
     var logoutBtn = document.getElementById("ht-logout-btn");

@@ -73,11 +73,39 @@
     return p;
   }
 
+  function loadFromApi() {
+    var base = (global.HT_API_BASE || '').replace(/\/$/, '');
+    if (!base) return null;
+    return fetch(base + '/api/products?perPage=500')
+      .then(function (r) {
+        if (!r.ok) throw new Error('api catalog failed');
+        return r.json();
+      })
+      .then(function (data) {
+        var list = (data && data.items) ? data.items : [];
+        cache = list.map(normalizeProduct).filter(Boolean);
+        return cache;
+      });
+  }
+
   function loadCatalog(force) {
     if (cache && !force) return Promise.resolve(cache);
     if (loadPromise && !force) return loadPromise;
 
-    loadPromise = fetch(DATA_PATH)
+    var apiLoad = loadFromApi();
+    if (apiLoad) {
+      loadPromise = apiLoad.catch(function () {
+        return loadCatalogFromFile();
+      });
+      return loadPromise;
+    }
+
+    loadPromise = loadCatalogFromFile();
+    return loadPromise;
+  }
+
+  function loadCatalogFromFile() {
+    return fetch(DATA_PATH)
       .then(function (r) {
         if (!r.ok) throw new Error('catalog fetch failed');
         return r.json();
@@ -96,8 +124,6 @@
         cache = [];
         return cache;
       });
-
-    return loadPromise;
   }
 
   function saveCatalogOverride(products) {
