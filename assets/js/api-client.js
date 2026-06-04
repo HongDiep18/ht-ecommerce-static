@@ -6,6 +6,7 @@
 
   var TOKEN_KEY = 'ht_api_token';
   var SESSION_KEY = 'ht_session_id';
+  var ADMIN_KEY = 'ht_admin_api_key';
 
   function baseUrl() {
     var b = global.HT_API_BASE;
@@ -71,6 +72,30 @@
     return request('/api/cart');
   }
 
+  function getAdminKey() {
+    try {
+      return localStorage.getItem(ADMIN_KEY) || '';
+    } catch (e) {
+      return '';
+    }
+  }
+
+  function setAdminKey(key) {
+    if (key) localStorage.setItem(ADMIN_KEY, key);
+    else localStorage.removeItem(ADMIN_KEY);
+    document.dispatchEvent(new CustomEvent('ht-api-change'));
+  }
+
+  function adminRequest(path, options) {
+    options = options || {};
+    var key = getAdminKey();
+    if (!key) {
+      return Promise.reject(new Error('Chưa nhập Admin API key.'));
+    }
+    var headers = Object.assign({}, options.headers || {}, { 'X-Admin-Key': key });
+    return request(path, Object.assign({}, options, { headers: headers }));
+  }
+
   global.HTApi = {
     enabled: enabled,
     baseUrl: baseUrl,
@@ -134,6 +159,32 @@
       return request('/api/cart/items/' + encodeURIComponent(lineId), { method: 'DELETE' });
     },
     getCart: getCart,
+    getAdminKey: getAdminKey,
+    setAdminKey: setAdminKey,
+    adminEnabled: function () {
+      return enabled() && !!getAdminKey();
+    },
+    adminGetProducts: function () {
+      return adminRequest('/api/admin/products');
+    },
+    adminSaveProduct: function (product, isNew) {
+      if (isNew) {
+        return adminRequest('/api/admin/products', { method: 'POST', body: product });
+      }
+      return adminRequest('/api/admin/products/' + encodeURIComponent(product.id), {
+        method: 'PUT',
+        body: product,
+      });
+    },
+    adminDeleteProduct: function (id) {
+      return adminRequest('/api/admin/products/' + encodeURIComponent(id), { method: 'DELETE' });
+    },
+    adminImportProducts: function (products) {
+      return adminRequest('/api/admin/import', { method: 'POST', body: { products: products } });
+    },
+    adminSeedFromFile: function () {
+      return adminRequest('/api/admin/seed', { method: 'POST' });
+    },
     refreshCartBadge: function () {
       if (!enabled()) return Promise.resolve();
       return getCart()
