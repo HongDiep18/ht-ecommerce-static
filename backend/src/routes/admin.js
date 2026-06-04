@@ -56,4 +56,17 @@ router.post('/seed', (req, res) => {
   res.json({ ok: true, count: products.length });
 });
 
+router.post('/import', (req, res) => {
+  const list = req.body && req.body.products;
+  if (!Array.isArray(list)) {
+    return res.status(400).json({ ok: false, message: 'Body phải có mảng products.' });
+  }
+  try {
+    const products = replaceAllProducts(list);
+    res.json({ ok: true, count: products.length });
+  } catch (e) {
+    res.status(400).json({ ok: false, message: e.message });
+  }
+});
+
 module.exports = router;
