@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Giỏ hàng — Hồng Thạnh</title>
+  <link href="assets/img/favicon.png" rel="icon">
+  <link href="https://fonts.googleapis.com" rel="preconnect">
+  <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&family=Nunito:wght@600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer">
+  <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+  <link href="assets/css/main.css" rel="stylesheet">
+  <script src="assets/js/includes.js"></script>
+</head>
+
+<body class="index-page">
+  <header id="header" class="header sticky-top py-2 bg-white border-bottom"></header>
+  <script>HTShop.loadHeader();</script>
+
+  <main class="main" id="checkout-page">
+    <div class="container py-5">
+      <nav aria-label="breadcrumb" class="mb-3">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a href="index.html">Trang chủ</a></li>
+          <li class="breadcrumb-item active">Giỏ hàng</li>
+        </ol>
+      </nav>
+      <h1 class="h3 mb-4"><i class="fa-solid fa-cart-shopping me-2"></i>Giỏ hàng</h1>
+
+      <div id="checkout-api-off" class="alert alert-warning d-none">
+        Giỏ hàng cần <strong>backend API</strong>. Chạy <code>npm run dev</code> trong thư mục <code>backend</code> và bật
+        <code>HT_API_BASE</code> trong <code>assets/js/ht-api-config.js</code>.
+      </div>
+
+      <div class="row g-4">
+        <div class="col-lg-8">
+          <div id="checkout-cart-items" class="card border-0 shadow-sm">
+            <div class="card-body text-muted">Đang tải giỏ hàng...</div>
+          </div>
+        </div>
+        <div class="col-lg-4">
+          <div class="card border-0 shadow-sm mb-3">
+            <div class="card-body">
+              <h2 class="h6 mb-3">Tổng cộng</h2>
+              <p class="h4 text-danger fw-bold mb-0" id="checkout-subtotal">0đ</p>
+            </div>
+          </div>
+          <div class="card border-0 shadow-sm">
+            <div class="card-body">
+              <h2 class="h6 mb-3">Thông tin giao hàng (COD)</h2>
+              <form id="checkout-order-form">
+                <div class="mb-2">
+                  <label class="form-label small">Họ tên</label>
+                  <input type="text" class="form-control form-control-sm" name="name" required>
+                </div>
+                <div class="mb-2">
+                  <label class="form-label small">Số điện thoại</label>
+                  <input type="tel" class="form-control form-control-sm" name="phone" required>
+                </div>
+                <div class="mb-2">
+                  <label class="form-label small">Địa chỉ</label>
+                  <textarea class="form-control form-control-sm" name="address" rows="2" required></textarea>
+                </div>
+                <div class="mb-3">
+                  <label class="form-label small">Ghi chú</label>
+                  <input type="text" class="form-control form-control-sm" name="note">
+                </div>
+                <button type="submit" class="btn btn-danger w-100" id="checkout-submit-btn" disabled>
+                  Đặt hàng — thanh toán khi nhận
+                </button>
+              </form>
+              <p class="small text-muted mt-3 mb-0">
+                <a href="orders.html">Xem đơn hàng</a> (cần đăng nhập). <a href="account.html">Tài khoản</a>
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div id="checkout-success" class="alert alert-success mt-4 d-none"></div>
+    </div>
+  </main>
+
+  <footer id="footer" class="bg-light pt-4 border-top mt-4"></footer>
+  <script>HTShop.loadFooter();</script>
+  <a href="#" id="scroll-top" class="scroll-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+
+  <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="assets/js/header.js"></script>
+  <script src="assets/js/ht-api-config.js"></script>
+  <script src="assets/js/api-client.js"></script>
+  <script src="assets/js/engagement.js"></script>
+  <script src="assets/js/checkout.js"></script>
+  <script src="assets/js/main.js"></script>
+</body>
+
+</html>
