@@ -26,13 +26,21 @@
         <label class="btn btn-sm btn-outline-secondary mb-0">
           Nhập JSON <input type="file" id="admin-import-json" accept=".json,application/json" hidden>
         </label>
-        <button type="button" class="btn btn-sm btn-outline-danger" id="admin-reset-catalog">Khôi phục file gốc</button>
+        <button type="button" class="btn btn-sm btn-outline-danger" id="admin-reset-catalog">Khôi phục từ products.json</button>
       </div>
     </div>
 
-    <div class="alert alert-info small">
-      Dữ liệu lưu trên trình duyệt (localStorage). Nhấn <strong>Tải JSON</strong> để thay file
-      <code>assets/data/products.json</code> trên server khi triển khai thật.
+    <div id="admin-mode-banner" class="alert alert-info small mb-3">Đang tải chế độ...</div>
+
+    <div class="card border-0 shadow-sm mb-4">
+      <div class="card-body py-3">
+        <label class="form-label small fw-semibold mb-1">Admin API key</label>
+        <div class="d-flex flex-wrap gap-2 align-items-center">
+          <input type="password" class="form-control form-control-sm" id="admin-api-key" placeholder="ht-admin-dev-key" style="max-width: 280px;">
+          <button type="button" class="btn btn-sm btn-danger" id="admin-api-key-save">Lưu key</button>
+          <span class="small text-muted">Cùng giá trị <code>ADMIN_API_KEY</code> trong <code>backend/.env</code></span>
+        </div>
+      </div>
     </div>
 
     <div class="row g-4">
@@ -47,7 +55,7 @@
           <div class="card-header bg-white fw-semibold">Chỉnh sửa sản phẩm</div>
           <div class="card-body">
             <form id="admin-product-form" class="d-none">
-              <input type="hidden" name="editIndex" value="-1">
+              <input type="hidden" name="isNew" value="0">
               <div class="row g-2">
                 <div class="col-md-6">
                   <label class="form-label small">ID (slug)</label>
