@@ -28,6 +28,10 @@ Across the top, **Hồng Thạnh** (HT) uses the logo on the left, a rounded **s
   - `introduce.html`, `log.html` — about / articles
   - `giayNam.html`, `giayNu.html`, `giayTreEm.html`, `giaySales.html`, `phuKien.html` — product category pages
   - `search.html` — product search results (`?q=…`)
+  - `product-detail.html` — product detail + variants
+  - `checkout.html`, `orders.html` — cart & orders (needs API)
+  - `account.html`, `wishlist.html`, `compare.html` — account & engagement
+  - `admin.html` — product admin (API or localStorage)
 
 ---
 
@@ -147,7 +151,7 @@ Examples: `npx serve .`, Python `python -m http.server 8080`, or IIS/XAMPP point
   3. **Page body** — content only, introduced with `<!-- ========== Page: … ========== -->`
   4. **Optional** — `<div id="layoutCommon">` + `HTShop.loadLayoutCommon()` for `partials/commonNamNu.html` (store + category listing pages)
   5. **Site footer** — `<footer id="footer">` then `HTShop.loadFooter();`
-  6. **Scripts** — vendor bundle → `header.js` → `site-search.js` → `main.js` (and any page-specific script before that block when needed)
+  6. **Scripts** — vendor bundle → `header.js` → (`ht-api-config.js`, `api-client.js` when using API) → `site-search.js` → `catalog-core.js` / `engagement.js` as needed → `main.js`
 - **Legacy/template-only pages** (`starter-page.html`, `portfolio-details.html`, `service-details.html`) still use the old embedded header pattern from the BootstrapMade template; new storefront pages should copy a refactored shop page instead.
 
 ### 3. Add or change a page
@@ -170,9 +174,52 @@ Examples: `npx serve .`, Python `python -m http.server 8080`, or IIS/XAMPP point
 3. Add `assets/vendor/php-email-form/php-email-form.php` if you use BootstrapMade’s PHP Email Form library, or replace the scripts with your own mail/API logic.
 4. For **SMTP**, uncomment and fill the `$contact->smtp` block in the PHP file as documented there.
 
-### 6. Deploy
+### 6. Product admin
 
-Upload the full folder structure to a host that supports **static files** and, if needed, **PHP**. Preserve paths so `assets/` and `partials/` resolve correctly from the web root.
+1. Open **`admin.html`**.
+2. If using the API: run `backend` (`npm run dev`), set **`HT_API_BASE`** in `assets/js/ht-api-config.js`, enter **Admin API key** (same as `ADMIN_API_KEY` in `backend/.env`, default `ht-admin-dev-key`) → **Lưu key**.
+3. Green banner = changes save to **SQLite** for all visitors after reload.
+4. Blue banner = **localStorage** only in that browser; use **Tải JSON** to update `assets/data/products.json` manually.
+5. **Khôi phục từ products.json** reloads the seed file into the DB (API) or clears the browser override (offline).
+
+### 7. Deploy
+
+#### Static storefront only
+
+- Upload the project root to any static host (IIS static site, nginx, Apache, S3 + CloudFront, Netlify, GitHub Pages, etc.).
+- Serve over **HTTPS** in production.
+- Keep folder layout: `index.html`, `assets/`, `partials/` at the web root (or adjust paths if using a subfolder).
+- Set `HT_API_BASE` to `''` in `ht-api-config.js` so the site reads **`assets/data/products.json`** only.
+
+#### Static + Node API (recommended for cart / orders / admin)
+
+| Component | Suggestion |
+|-----------|------------|
+| **Frontend** | Same static upload as above |
+| **API** | Run `backend` on a VPS, Azure App Service, Railway, Render, etc. with Node 18+ |
+| **Database** | Default SQLite file in `backend/data/`; for production scale, migrate to PostgreSQL/MySQL |
+| **Env** | Set `JWT_SECRET`, `ADMIN_API_KEY`, `CORS_ORIGIN` to your real shop URL (e.g. `https://shop.example.com`) |
+| **Frontend config** | `HT_API_BASE = 'https://api.example.com'` (no trailing slash) |
+
+Use a reverse proxy so the browser calls one origin if you prefer (e.g. nginx: `/api` → `localhost:3001`).
+
+#### PHP contact / newsletter
+
+- Host must support **PHP** for `forms/contact.php` and `forms/newsletter.php`.
+- XAMPP, cPanel, or IIS + PHP are typical on Windows hosting.
+- Configure `$receiving_email_address` and optional SMTP in those PHP files.
+
+#### Windows / IIS quick checklist
+
+1. Site physical path → project root.
+2. Default document: `index.html`.
+3. MIME types: `.json` as `application/json` if downloads fail.
+4. Optional: separate site or application for Node API on another port, firewall open only to the proxy.
+
+#### After deploy
+
+- Run `npm run seed` once on the server (or copy a prepared `htshop.sqlite`).
+- Test: `https://your-api/api/health`, then `checkout.html` and `admin.html` with admin key.
 
 ---
 
@@ -205,4 +252,4 @@ HT_Shop/
 - Template basis: **Bikin** by BootstrapMade (see header comments in `assets/js/main.js` and [BootstrapMade license](https://bootstrapmade.com/license/)).
 - Vendor libraries retain their respective licenses under `assets/vendor/`.
 
-If you want this README to include deployment steps for a specific host (cPanel, Azure, Netlify with PHP, etc.), say which environment you use and we can add a short section for it.
+For a host-specific guide (e.g. only cPanel or only Azure), name the platform and we can extend section 7.

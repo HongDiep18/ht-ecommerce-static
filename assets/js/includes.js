@@ -23,8 +23,34 @@
       });
   }
 
+  function loadScript(src) {
+    return new Promise(function (resolve, reject) {
+      var existing = document.querySelector('script[src="' + src + '"]');
+      if (existing) {
+        resolve();
+        return;
+      }
+      var s = document.createElement('script');
+      s.src = src;
+      s.onload = resolve;
+      s.onerror = function () {
+        reject(new Error('Failed to load ' + src));
+      };
+      document.head.appendChild(s);
+    });
+  }
+
+  /** Loads ht-api-config.js + api-client.js (for cart badge, admin, checkout). */
+  function loadApiClient() {
+    return loadScript('assets/js/ht-api-config.js').then(function () {
+      return loadScript('assets/js/api-client.js');
+    });
+  }
+
   global.HTShop = {
     loadPartial: loadPartial,
+    loadScript: loadScript,
+    loadApiClient: loadApiClient,
     loadHeader: function () {
       return loadPartial('header', 'partials/header.html');
     },
