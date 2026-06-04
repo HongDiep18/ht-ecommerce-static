@@ -1,6 +1,7 @@
 /**
  * Point the storefront at the Node API.
- * Load this BEFORE catalog-core.js when using the backend.
+ * Load BEFORE catalog-core.js / api-client.js.
+ * Set to '' or comment out HT_API_BASE to use products.json only (offline).
  */
 (function (global) {
   'use strict';
