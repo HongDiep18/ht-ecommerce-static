@@ -1,0 +1,10 @@
+# Backend
+backend/node_modules/
+backend/data/*.sqlite
+backend/data/*.sqlite-*
+backend/.env
+
+# OS / editor
+.DS_Store
+Thumbs.db
+*.swp
