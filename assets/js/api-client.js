@@ -67,6 +67,10 @@
     });
   }
 
+  function getCart() {
+    return request('/api/cart');
+  }
+
   global.HTApi = {
     enabled: enabled,
     baseUrl: baseUrl,
@@ -120,5 +124,38 @@
     getOrders: function () {
       return request('/api/orders');
     },
+    updateCartItem: function (lineId, quantity) {
+      return request('/api/cart/items/' + encodeURIComponent(lineId), {
+        method: 'PATCH',
+        body: { quantity: quantity },
+      });
+    },
+    removeCartItem: function (lineId) {
+      return request('/api/cart/items/' + encodeURIComponent(lineId), { method: 'DELETE' });
+    },
+    getCart: getCart,
+    refreshCartBadge: function () {
+      if (!enabled()) return Promise.resolve();
+      return getCart()
+        .then(function (r) {
+          var count = (r.items || []).reduce(function (s, i) {
+            return s + (i.quantity || 0);
+          }, 0);
+          var badge = document.getElementById('ht-badge-cart');
+          if (!badge) return;
+          badge.textContent = count > 99 ? '99+' : String(count);
+          badge.classList.toggle('d-none', count < 1);
+        })
+        .catch(function () {});
+    },
   };
+
+  document.addEventListener('DOMContentLoaded', function () {
+    if (enabled()) {
+      global.HTApi.refreshCartBadge();
+    }
+  });
+  document.addEventListener('ht-api-change', function () {
+    if (enabled()) global.HTApi.refreshCartBadge();
+  });
 })(window);

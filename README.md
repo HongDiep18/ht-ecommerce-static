@@ -103,6 +103,23 @@ php -S localhost:8080
 
 Then open `http://localhost:8080/index.html` in your browser.
 
+**Option A2 — With backend API** (catalog, cart, orders, real login):
+
+```bash
+# Terminal 1 — static site
+cd path/to/HT_Shop
+php -S localhost:8080
+
+# Terminal 2 — API
+cd backend
+copy .env.example .env
+npm install
+npm run seed
+npm run dev
+```
+
+Ensure `assets/js/ht-api-config.js` sets `HT_API_BASE = 'http://localhost:3001'`. Open `giayNam.html`, `checkout.html`, or `account.html` to test.
+
 **Option B — Any static file server** (header/footer only; forms will not work without PHP):
 
 Examples: `npx serve .`, Python `python -m http.server 8080`, or IIS/XAMPP pointing at this folder.
@@ -164,6 +181,7 @@ Upload the full folder structure to a host that supports **static files** and, i
 ```
 HT_Shop/
 ├── index.html, search.html   # Home + search results
+├── checkout.html, orders.html # Cart & order history (needs API)
 ├── cuahang.html              # Stores
 ├── introduce.html, log.html
 ├── giay*.html, phuKien.html
