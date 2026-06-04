@@ -137,7 +137,7 @@ Examples: `npx serve .`, Python `python -m http.server 8080`, or IIS/XAMPP point
 - The header search box loads `assets/js/site-search.js` and reads the catalog **`assets/data/products.json`** (no server database).
 - While typing, a short suggestion list appears; **Enter** or the search icon opens **`search.html?q=…`** with a full grid of matches.
 - Matching is case-insensitive and strips most combining accents so queries like `dep` can match **Dép**.
-- To add or change products, edit **`assets/data/products.json`** (fields: `name`, `price`, `image`, `category`, `categoryUrl`, optional `keywords`, optional `detailUrl`; default detail link is `portfolio-details.html`).
+- To add or change products: use **`admin.html`** (API mode with backend, or localStorage offline), or edit **`assets/data/products.json`** and run `npm run seed` in `backend/`.
 
 ### HTML page organization
 

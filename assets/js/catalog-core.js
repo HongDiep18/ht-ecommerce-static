@@ -88,8 +88,18 @@
       });
   }
 
+  function invalidateCatalogCache() {
+    cache = null;
+    loadPromise = null;
+    document.dispatchEvent(new CustomEvent('ht-catalog-change'));
+  }
+
   function loadCatalog(force) {
     if (cache && !force) return Promise.resolve(cache);
+    if (force) {
+      cache = null;
+      loadPromise = null;
+    }
     if (loadPromise && !force) return loadPromise;
 
     var apiLoad = loadFromApi();
@@ -284,6 +294,7 @@
 
   global.HTCatalog = {
     loadCatalog: loadCatalog,
+    invalidateCatalogCache: invalidateCatalogCache,
     saveCatalogOverride: saveCatalogOverride,
     clearCatalogOverride: clearCatalogOverride,
     getProductById: getProductById,

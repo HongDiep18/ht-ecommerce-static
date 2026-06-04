@@ -55,6 +55,7 @@ Enable API in the shop: uncomment `HT_API_BASE` in `assets/js/ht-api-config.js` 
 | PUT | `/api/admin/products/:id` | `X-Admin-Key` | Update |
 | DELETE | `/api/admin/products/:id` | `X-Admin-Key` | Delete |
 | POST | `/api/admin/seed` | `X-Admin-Key` | Reload from `assets/data/products.json` |
+| POST | `/api/admin/import` | `X-Admin-Key` | Body `{ "products": [...] }` — replace full catalog |
 
 ### Guest cart / orders
 
@@ -64,7 +65,8 @@ Send header **`X-Session-Id`** (any stable string; the frontend generates one in
 
 - Products are seeded from **`../assets/data/products.json`** on first start or via `npm run seed`.
 - Placing an order **decrements variant stock** in the database.
-- Admin changes go through `/api/admin/*`; export JSON from the static admin UI can still be synced by re-running seed or PUT endpoints.
+- **`admin.html`** uses `/api/admin/*` when `HT_API_BASE` is set and you save the Admin API key (default dev: `ht-admin-dev-key`).
+- Export JSON from admin still works for backing up `assets/data/products.json`.
 
 ## Production notes
 
