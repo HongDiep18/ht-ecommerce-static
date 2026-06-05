@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Quản trị sản phẩm — Hồng Thạnh</title>
+  <link href="/assets/img/favicon.png" rel="icon">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+  <link href="/assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="/assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+  <link href="/assets/css/main.css" rel="stylesheet">
+  <script src="/assets/js/paths.js"></script>
+  <script src="/assets/js/includes.js"></script>
+</head>
+
+<body class="index-page">
+  <header id="header" class="header sticky-top py-2 bg-white border-bottom"></header>
+  <script>HTShop.loadHeader();</script>
+
+  <main class="container py-5" id="admin-page" style="max-width: 1100px;">
+    <div class="d-flex flex-wrap justify-content-between align-items-center gap-2 mb-4">
+      <h1 class="h3 mb-0"><i class="bi bi-gear me-2"></i>Quản trị sản phẩm</h1>
+      <div class="d-flex flex-wrap gap-2">
+        <button type="button" class="btn btn-sm btn-danger" id="admin-add-product">+ Thêm sản phẩm</button>
+        <button type="button" class="btn btn-sm btn-outline-primary" id="admin-export-json">Tải JSON</button>
+        <label class="btn btn-sm btn-outline-secondary mb-0">
+          Nhập JSON <input type="file" id="admin-import-json" accept=".json,application/json" hidden>
+        </label>
+        <button type="button" class="btn btn-sm btn-outline-danger" id="admin-reset-catalog">Khôi phục từ products.json</button>
+      </div>
+    </div>
+
+    <div id="admin-mode-banner" class="alert alert-info small mb-3">Đang tải chế độ...</div>
+
+    <div class="card border-0 shadow-sm mb-4">
+      <div class="card-body py-3">
+        <label class="form-label small fw-semibold mb-1">Admin API key</label>
+        <div class="d-flex flex-wrap gap-2 align-items-center">
+          <input type="password" class="form-control form-control-sm" id="admin-api-key" placeholder="ht-admin-dev-key" style="max-width: 280px;">
+          <button type="button" class="btn btn-sm btn-danger" id="admin-api-key-save">Lưu key</button>
+          <span class="small text-muted">Cùng giá trị <code>ADMIN_API_KEY</code> trong <code>backend/.env</code></span>
+        </div>
+      </div>
+    </div>
+
+    <div class="row g-4">
+      <div class="col-lg-5">
+        <div class="card border-0 shadow-sm">
+          <div class="card-header bg-white fw-semibold">Danh sách (<span id="admin-count">0</span>)</div>
+          <div class="list-group list-group-flush admin-product-list" id="admin-product-list" style="max-height: 520px; overflow-y: auto;"></div>
+        </div>
+      </div>
+      <div class="col-lg-7">
+        <div class="card border-0 shadow-sm">
+          <div class="card-header bg-white fw-semibold">Chỉnh sửa sản phẩm</div>
+          <div class="card-body">
+            <form id="admin-product-form" class="d-none">
+              <input type="hidden" name="isNew" value="0">
+              <div class="row g-2">
+                <div class="col-md-6">
+                  <label class="form-label small">ID (slug)</label>
+                  <input class="form-control form-control-sm" name="id" required>
+                </div>
+                <div class="col-md-6">
+                  <label class="form-label small">Danh mục</label>
+                  <select class="form-select form-select-sm" name="category">
+                    <option>Giày nam</option>
+                    <option>Giày nữ</option>
+                    <option>Giày trẻ em</option>
+                    <option>Sale</option>
+                    <option>Phụ kiện</option>
+                    <option>Bán chạy</option>
+                  </select>
+                </div>
+                <div class="col-12">
+                  <label class="form-label small">Tên sản phẩm</label>
+                  <input class="form-control form-control-sm" name="name" required>
+                </div>
+                <div class="col-md-6">
+                  <label class="form-label small">Thương hiệu</label>
+                  <input class="form-control form-control-sm" name="brand" value="Hồng Thạnh">
+                </div>
+                <div class="col-md-6">
+                  <label class="form-label small">% Sale (tùy chọn)</label>
+                  <input class="form-control form-control-sm" name="salePercent" type="number" min="0" max="99">
+                </div>
+                <div class="col-md-6">
+                  <label class="form-label small">Ảnh chính</label>
+                  <input class="form-control form-control-sm" name="image">
+                </div>
+                <div class="col-md-6">
+                  <label class="form-label small">Ảnh hover</label>
+                  <input class="form-control form-control-sm" name="imageHover">
+                </div>
+                <div class="col-12">
+                  <label class="form-label small">Từ khóa (search)</label>
+                  <input class="form-control form-control-sm" name="keywords">
+                </div>
+                <div class="col-12">
+                  <label class="form-label small">Biến thể (JSON: size, color, colorHex, priceNumber, stock)</label>
+                  <textarea class="form-control form-control-sm font-monospace" name="variantsJson" rows="6" placeholder='[{"sku":"id-39-den","size":"39","color":"Đen","colorHex":"#111","priceNumber":200000,"stock":5}]'></textarea>
+                </div>
+              </div>
+              <div class="d-flex gap-2 mt-3">
+                <button type="submit" class="btn btn-danger btn-sm">Lưu sản phẩm</button>
+                <button type="button" class="btn btn-outline-secondary btn-sm" id="admin-cancel-edit">Hủy</button>
+                <button type="button" class="btn btn-outline-danger btn-sm ms-auto" id="admin-delete-product">Xóa</button>
+              </div>
+            </form>
+            <p id="admin-form-placeholder" class="text-muted mb-0">Chọn sản phẩm bên trái hoặc thêm mới.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer id="footer" class="bg-light pt-4 border-top mt-4"></footer>
+  <script>HTShop.loadFooter();</script>
+
+  <script src="/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="/assets/js/header.js"></script>
+  <script src="/assets/js/ht-api-config.js"></script>
+  <script src="/assets/js/api-client.js"></script>
+  <script src="/assets/js/catalog-core.js"></script>
+  <script src="/assets/js/catalog-admin.js"></script>
+</body>
+
+</html>
