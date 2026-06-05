@@ -62,7 +62,7 @@
       price: p.price || "Liên hệ",
       image: p.image || "",
       category: p.category || "",
-      categoryUrl: p.categoryUrl || "cuahang.html",
+      categoryUrl: p.categoryUrl || (window.HTShop && HTShop.paths ? HTShop.paths.shop.cuaHang : "/shop/cua-hang.html"),
     };
   }
 
@@ -268,7 +268,10 @@
         category: p.category || "",
         categoryUrl: p.categoryUrl || "",
       });
-      return "product-detail.html?" + q.toString();
+      if (global.HTShop && HTShop.paths && HTShop.paths.productDetail) {
+        return HTShop.paths.productDetail(p.id);
+      }
+      return "/shop/product.html?" + q.toString();
     },
   };
 

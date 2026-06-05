@@ -32,7 +32,7 @@
       });
       return loadPromise;
     }
-    loadPromise = fetch('assets/data/products.json')
+    loadPromise = fetch('/assets/data/products.json')
       .then(function (r) { return r.ok ? r.json() : []; })
       .then(function (data) {
         catalog = Array.isArray(data) ? data : [];
@@ -57,10 +57,17 @@
     });
   }
 
+  function searchUrl(query) {
+    var base = (window.HTShop && HTShop.paths && HTShop.paths.shop)
+      ? HTShop.paths.shop.search
+      : '/shop/search.html';
+    return base + '?q=' + encodeURIComponent(query);
+  }
+
   function goSearchPage(q) {
     var query = (q || '').trim();
     if (!query) return;
-    window.location.href = 'search.html?q=' + encodeURIComponent(query);
+    window.location.href = searchUrl(query);
   }
 
   function renderDropdown(dropdown, items, query) {
@@ -70,14 +77,14 @@
         '<a class="d-block px-3 py-2 small text-center border-top site-search-view-all" href="#">Xem tất cả kết quả</a>';
       var link = dropdown.querySelector('.site-search-view-all');
       if (link) {
-        link.href = 'search.html?q=' + encodeURIComponent(query);
+        link.href = searchUrl(query);
       }
       return;
     }
     var html = items
       .slice(0, 8)
       .map(function (p) {
-        var url = (window.HTCatalog && HTCatalog.detailUrl) ? HTCatalog.detailUrl(p) : ('product-detail.html?id=' + encodeURIComponent(p.id || ''));
+        var url = (window.HTCatalog && HTCatalog.detailUrl) ? HTCatalog.detailUrl(p) : ('/shop/product.html?id=' + encodeURIComponent(p.id || ''));
         return (
           '<a class="d-flex align-items-center gap-2 px-3 py-2 text-decoration-none text-dark border-bottom site-search-item" href="' +
           url +
@@ -101,7 +108,7 @@
       '<a class="d-block px-3 py-2 small text-center text-primary fw-semibold site-search-view-all" href="#">Xem tất cả kết quả</a>';
     dropdown.innerHTML = html;
     var allLink = dropdown.querySelector('.site-search-view-all');
-    if (allLink) allLink.href = 'search.html?q=' + encodeURIComponent(query);
+    if (allLink) allLink.href = searchUrl(query);
   }
 
   function escapeHtml(str) {
@@ -205,12 +212,12 @@
       }
       if (!items.length) {
         container.innerHTML =
-          '<div class="col-12"><p class="text-muted">Không có sản phẩm khớp. Thử từ khóa khác hoặc xem danh mục <a href="giayNam.html">nam</a>, <a href="giayNu.html">nữ</a>.</p></div>';
+          '<div class="col-12"><p class="text-muted">Không có sản phẩm khớp. Thử từ khóa khác hoặc xem danh mục <a href="/shop/catalog.html?cat=nam">nam</a>, <a href="/shop/catalog.html?cat=nu">nữ</a>.</p></div>';
         return;
       }
       container.innerHTML = items
         .map(function (p) {
-          var url = (window.HTCatalog && HTCatalog.detailUrl) ? HTCatalog.detailUrl(p) : ('product-detail.html?id=' + encodeURIComponent(p.id || ''));
+          var url = (window.HTCatalog && HTCatalog.detailUrl) ? HTCatalog.detailUrl(p) : ('/shop/product.html?id=' + encodeURIComponent(p.id || ''));
           return (
             '<div class="col-6 col-md-4 col-lg-3 mb-4">' +
             '<a class="card h-100 text-decoration-none text-dark shadow-sm" href="' +

@@ -34,7 +34,7 @@
     if (!items.length) {
       host.innerHTML =
         '<div class="card-body"><p class="text-muted mb-2">Giỏ hàng trống.</p>' +
-        '<a href="cuahang.html" class="btn btn-sm btn-danger">Tiếp tục mua sắm</a></div>';
+        '<a href="/shop/cua-hang.html" class="btn btn-sm btn-danger">Tiếp tục mua sắm</a></div>';
       if (subtotalEl) subtotalEl.textContent = '0đ';
       if (submitBtn) submitBtn.disabled = true;
       return;
@@ -179,7 +179,7 @@
                 escapeHtml(r.order.id) +
                 '</strong>. Tổng: ' +
                 formatMoney(r.order.total) +
-                '. <a href="orders.html">Xem đơn hàng</a>';
+                '. <a href="/account/orders.html">Xem đơn hàng</a>';
             }
             toast('Đặt hàng thành công.', 'success');
             refresh();

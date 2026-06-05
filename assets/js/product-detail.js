@@ -30,7 +30,7 @@
     var main = host.querySelector('.container.py-5');
     if (main) {
       main.innerHTML =
-        '<div class="alert alert-warning">Không tìm thấy sản phẩm. <a href="cuahang.html">Quay lại cửa hàng</a></div>';
+        '<div class="alert alert-warning">Không tìm thấy sản phẩm. <a href="/shop/cua-hang.html">Quay lại cửa hàng</a></div>';
     }
   }
 
@@ -142,7 +142,7 @@
       imageEl.alt = product.name;
     }
     if (backEl) {
-      backEl.href = product.categoryUrl || 'cuahang.html';
+      backEl.href = product.categoryUrl || (window.HTShop && HTShop.paths ? HTShop.paths.shop.cuaHang : '/shop/cua-hang.html');
       backEl.textContent = 'Quay lại ' + (product.category || 'danh mục');
     }
     if (page) page.dataset.productId = product.id;
@@ -158,7 +158,7 @@
     if (!btn) return;
     btn.addEventListener('click', function () {
       if (!window.HTApi || !HTApi.enabled()) {
-        window.location.href = 'checkout.html';
+        window.location.href = (window.HTShop && HTShop.paths) ? HTShop.paths.account.checkout : '/account/checkout.html';
         return;
       }
       if (!selectedVariant || selectedVariant.stock < 1) {

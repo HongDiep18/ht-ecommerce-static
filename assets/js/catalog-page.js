@@ -178,14 +178,28 @@
     });
   }
 
+  function resolveCatalogFromUrl() {
+    var params = new URLSearchParams(window.location.search);
+    var slug = params.get('cat');
+    if (!slug || !window.HTShop || !HTShop.paths || !HTShop.paths.cats) return null;
+    return HTShop.paths.cats[slug] || null;
+  }
+
   function mountFromPlaceholder() {
     var ph = document.getElementById('catalog-placeholder');
     if (!ph) return;
 
-    var category = ph.getAttribute('data-catalog-category') || 'all';
-    var title = ph.getAttribute('data-catalog-title') || 'Sản phẩm';
+    var fromUrl = resolveCatalogFromUrl();
+    var category = fromUrl ? fromUrl.category : (ph.getAttribute('data-catalog-category') || 'all');
+    var title = fromUrl ? fromUrl.title : (ph.getAttribute('data-catalog-title') || 'Sản phẩm');
 
-    fetch('partials/catalog-section.html')
+    if (fromUrl) {
+      document.title = title + ' — Hồng Thạnh';
+      var crumb = document.getElementById('catalog-breadcrumb-title');
+      if (crumb) crumb.textContent = title;
+    }
+
+    fetch('/partials/catalog-section.html')
       .then(function (r) { return r.text(); })
       .then(function (html) {
         ph.insertAdjacentHTML('afterend', html);

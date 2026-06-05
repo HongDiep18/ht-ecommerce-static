@@ -11,7 +11,8 @@
     if (!el) {
       return Promise.resolve();
     }
-    return fetch(path)
+    var url = path.charAt(0) === '/' ? path : path;
+    return fetch(url)
       .then(function (res) {
         if (!res.ok) {
           throw new Error('HTTP ' + res.status + ' for ' + path);
@@ -42,8 +43,8 @@
 
   /** Loads ht-api-config.js + api-client.js (for cart badge, admin, checkout). */
   function loadApiClient() {
-    return loadScript('assets/js/ht-api-config.js').then(function () {
-      return loadScript('assets/js/api-client.js');
+    return loadScript('/assets/js/ht-api-config.js').then(function () {
+      return loadScript('/assets/js/api-client.js');
     });
   }
 
@@ -52,13 +53,13 @@
     loadScript: loadScript,
     loadApiClient: loadApiClient,
     loadHeader: function () {
-      return loadPartial('header', 'partials/header.html');
+      return loadPartial('header', '/partials/header.html');
     },
     loadFooter: function () {
-      return loadPartial('footer', 'partials/footer.html');
+      return loadPartial('footer', '/partials/footer.html');
     },
     loadLayoutCommon: function () {
-      return loadPartial('layoutCommon', 'partials/commonNamNu.html');
+      return loadPartial('layoutCommon', '/partials/commonNamNu.html');
     }
   };
 })(typeof window !== 'undefined' ? window : this);
