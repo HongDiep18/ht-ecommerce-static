@@ -74,13 +74,19 @@
       category: product.category || '',
       categoryUrl: product.categoryUrl || ''
     });
-    return 'product-detail.html?' + q.toString();
+    if (global.HTShop && HTShop.paths && HTShop.paths.productDetail) {
+      return HTShop.paths.productDetail(product.id);
+    }
+    return '/shop/product.html?' + q.toString();
   }
 
   function openDetailFromCard(card) {
     var catalogId = card.getAttribute('data-product-id');
     if (catalogId) {
-      window.location.href = 'product-detail.html?id=' + encodeURIComponent(catalogId);
+      var url = (global.HTShop && HTShop.paths && HTShop.paths.productDetail)
+        ? HTShop.paths.productDetail(catalogId)
+        : '/shop/product.html?id=' + encodeURIComponent(catalogId);
+      window.location.href = url;
       return;
     }
     var product = extractProduct(card);

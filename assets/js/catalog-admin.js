@@ -9,15 +9,10 @@
   var useApi = false;
 
   function categoryUrlFor(cat) {
-    var map = {
-      'Giày nam': 'giayNam.html',
-      'Giày nữ': 'giayNu.html',
-      'Giày trẻ em': 'giayTreEm.html',
-      Sale: 'giaySales.html',
-      'Phụ kiện': 'phuKien.html',
-      'Bán chạy': 'index.html',
-    };
-    return map[cat] || 'cuahang.html';
+    if (window.HTShop && HTShop.paths && HTShop.paths.categoryUrlFromName) {
+      return HTShop.paths.categoryUrlFromName(cat);
+    }
+    return '/shop/cua-hang.html';
   }
 
   function apiMode() {

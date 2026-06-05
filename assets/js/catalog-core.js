@@ -4,7 +4,7 @@
 (function (global) {
   'use strict';
 
-  var DATA_PATH = 'assets/data/products.json';
+  var DATA_PATH = '/assets/data/products.json';
   var OVERRIDE_KEY = 'ht_catalog_override';
   var cache = null;
   var loadPromise = null;
@@ -27,12 +27,19 @@
       .replace(/"/g, '&quot;');
   }
 
+  function assetUrl(path) {
+    if (!path) return '';
+    if (/^https?:\/\//i.test(path) || String(path).charAt(0) === '/') return path;
+    return '/' + String(path).replace(/^\//, '');
+  }
+
   function normalizeProduct(raw) {
     if (!raw || !raw.id) return null;
     var p = Object.assign({}, raw);
     p.brand = p.brand || 'Hồng Thạnh';
     p.keywords = p.keywords || '';
-    p.imageHover = p.imageHover || p.image || '';
+    p.image = assetUrl(p.image);
+    p.imageHover = assetUrl(p.imageHover || p.image);
 
     if (!Array.isArray(p.variants) || !p.variants.length) {
       var base = parsePrice(p.price);
@@ -167,9 +174,12 @@
   }
 
   function detailUrl(product, variantSku) {
+    if (global.HTShop && HTShop.paths && HTShop.paths.productDetail) {
+      return HTShop.paths.productDetail(product.id, variantSku);
+    }
     var q = new URLSearchParams({ id: product.id });
     if (variantSku) q.set('variant', variantSku);
-    return 'product-detail.html?' + q.toString();
+    return '/shop/product.html?' + q.toString();
   }
 
   function matchCategory(product, categoryFilter) {

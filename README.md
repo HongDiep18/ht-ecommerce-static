@@ -24,14 +24,13 @@ Across the top, **Hồng Thạnh** (HT) uses the logo on the left, a rounded **s
 - **Main entry:** Open `index.html` in a browser **via a local HTTP server** (see [Tutorial](#tutorial)) so `fetch()` can load `partials/header.html` and `partials/footer.html`.
 - **Key pages (examples):**
   - `index.html` — home
-  - `cuahang.html` — store listing
-  - `introduce.html`, `log.html` — about / articles
-  - `giayNam.html`, `giayNu.html`, `giayTreEm.html`, `giaySales.html`, `phuKien.html` — product category pages
-  - `search.html` — product search results (`?q=…`)
-  - `product-detail.html` — product detail + variants
-  - `checkout.html`, `orders.html` — cart & orders (needs API)
-  - `account.html`, `wishlist.html`, `compare.html` — account & engagement
-  - `admin.html` — product admin (API or localStorage)
+  - `shop/cua-hang.html` — store hub
+  - `shop/catalog.html?cat=nam|nu|…` — category listings (one template)
+  - `shop/product.html`, `shop/search.html` — detail & search
+  - `account/*` — login, wishlist, compare, checkout, orders
+  - `admin/index.html` — product admin
+  - `content/gioi-thieu.html`, `content/blog.html` — about & articles
+  - Old root URLs (`giayNam.html`, etc.) redirect to the new paths
 
 ---
 
@@ -227,21 +226,20 @@ Use a reverse proxy so the browser calls one origin if you prefer (e.g. nginx: `
 
 ```
 HT_Shop/
-├── index.html, search.html   # Home + search results
-├── checkout.html, orders.html # Cart & order history (needs API)
-├── cuahang.html              # Stores
-├── introduce.html, log.html
-├── giay*.html, phuKien.html
+├── index.html                # Home (only main page at root)
+├── shop/                     # catalog, cua-hang, product, search
+├── account/                  # login, wishlist, compare, checkout, orders
+├── admin/                    # product admin
+├── content/                  # gioi-thieu, blog
 ├── backend/                  # Node.js REST API (optional)
-├── partials/                 # header.html, footer.html, shared snippets
+├── partials/                 # header, footer, catalog-section
 ├── forms/                    # contact.php, newsletter.php
+├── _archive/                 # legacy BootstrapMade template pages
 ├── assets/
-│   ├── data/products.json    # Catalog seed + offline fallback
-│   ├── css/
-│   ├── js/                   # catalog-core, api-client, engagement, …
-│   ├── img/
-│   ├── scss/
-│   └── vendor/               # Bootstrap, Swiper, AOS, etc.
+│   ├── data/products.json
+│   ├── js/paths.js           # site URL map (root-relative)
+│   └── …
+├── giayNam.html, …           # redirect stubs → new URLs (backward compatible)
 └── README.md
 ```
 

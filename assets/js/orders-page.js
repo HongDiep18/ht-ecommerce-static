@@ -28,7 +28,7 @@
 
     if (!HTApi.getToken()) {
       host.innerHTML =
-        '<p class="text-muted">Vui lòng <a href="account.html">đăng nhập</a> để xem đơn hàng.</p>';
+        '<p class="text-muted">Vui lòng <a href="/account/index.html">đăng nhập</a> để xem đơn hàng.</p>';
       return;
     }
 
