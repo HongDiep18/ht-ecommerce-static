@@ -4,7 +4,7 @@ Multi-page storefront website for footwear and accessories. Content and navigati
 
 ---
 
-## Introduction
+## Introduction project
 
 ### Homepage
 
@@ -38,48 +38,48 @@ Across the top, **Hồng Thạnh** (HT) uses the logo on the left, a rounded **s
 
 ### Core
 
-| Layer | Technology | Notes |
-|--------|------------|--------|
-| **Markup** | HTML5 | Multiple `.html` pages; no SPA framework. |
-| **Styling** | CSS3, **Bootstrap 5.3.3** | Grid, utilities, components, RTL variants present under `assets/vendor/bootstrap/`. |
-| **Icons** | **Bootstrap Icons**, **Font Awesome 6** (CDN in pages) | Mix of `bi-*` and Font Awesome classes. |
-| **Typography** | **Google Fonts** | Roboto, Lato, Nunito (linked from `fonts.googleapis.com`). |
-| **Scripting** | **Vanilla JavaScript** | `assets/js/main.js` (template behaviors), `header.js`, `cuahang.js`, inline scripts on some pages. |
-| **Partials** | `includes.js` + `fetch()` | `HTShop.loadHeader()` / `loadFooter()` load `partials/*.html`; **requires HTTP(S)** (not reliable with `file://`). |
-| **Search** | `site-search.js` + `products.json` | Client-side catalog filter; results on `search.html` (no backend). |
+| Layer          | Technology                                             | Notes                                                                                                              |
+| -------------- | ------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------ |
+| **Markup**     | HTML5                                                  | Multiple `.html` pages; no SPA framework.                                                                          |
+| **Styling**    | CSS3, **Bootstrap 5.3.3**                              | Grid, utilities, components, RTL variants present under `assets/vendor/bootstrap/`.                                |
+| **Icons**      | **Bootstrap Icons**, **Font Awesome 6** (CDN in pages) | Mix of `bi-*` and Font Awesome classes.                                                                            |
+| **Typography** | **Google Fonts**                                       | Roboto, Lato, Nunito (linked from `fonts.googleapis.com`).                                                         |
+| **Scripting**  | **Vanilla JavaScript**                                 | `assets/js/main.js` (template behaviors), `header.js`, `cuahang.js`, inline scripts on some pages.                 |
+| **Partials**   | `includes.js` + `fetch()`                              | `HTShop.loadHeader()` / `loadFooter()` load `partials/*.html`; **requires HTTP(S)** (not reliable with `file://`). |
+| **Search**     | `site-search.js` + `products.json`                     | Client-side catalog filter; results on `search.html` (no backend).                                                 |
 
 ### Third-party libraries (vendored under `assets/vendor/`)
 
-| Library | Role |
-|---------|------|
-| **Bootstrap** (`bootstrap.bundle.min.js`) | JS for dropdowns, modals, carousel, collapse, etc. |
-| **AOS** | Animate-on-scroll for sections. |
-| **Swiper** | Touch-friendly sliders/carousels. |
-| **GLightbox** | Image/media lightbox. |
-| **Isotope** + **imagesLoaded** | Filterable/masonry-style layouts after images load. |
-| **php-email-form** (`validate.js`) | Client-side validation wired to PHP form endpoints. |
+| Library                                   | Role                                                |
+| ----------------------------------------- | --------------------------------------------------- |
+| **Bootstrap** (`bootstrap.bundle.min.js`) | JS for dropdowns, modals, carousel, collapse, etc.  |
+| **AOS**                                   | Animate-on-scroll for sections.                     |
+| **Swiper**                                | Touch-friendly sliders/carousels.                   |
+| **GLightbox**                             | Image/media lightbox.                               |
+| **Isotope** + **imagesLoaded**            | Filterable/masonry-style layouts after images load. |
+| **php-email-form** (`validate.js`)        | Client-side validation wired to PHP form endpoints. |
 
 ### Optional backend
 
-| Piece | Role |
-|--------|------|
+| Piece   | Role                                                                                                                                                                                                                                      |
+| ------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | **PHP** | `forms/contact.php`, `forms/newsletter.php` process POST data and send mail via the **PHP Email Form** helper expected at `assets/vendor/php-email-form/php-email-form.php` (BootstrapMade pro asset; see comments inside the PHP files). |
 
 ### Source assets
 
-| Path | Purpose |
-|------|---------|
-| `assets/css/` | Compiled/custom styles (`main.css`, page-specific CSS). |
+| Path           | Purpose                                                                      |
+| -------------- | ---------------------------------------------------------------------------- |
+| `assets/css/`  | Compiled/custom styles (`main.css`, page-specific CSS).                      |
 | `assets/scss/` | SCSS sources / readme for theme customization (if you compile SCSS locally). |
-| `assets/data/` | `products.json` — searchable product catalog for the header search. |
+| `assets/data/` | `products.json` — searchable product catalog for the header search.          |
 
 ### Backend API (optional)
 
-| Piece | Path | Notes |
-|--------|------|--------|
-| **Node API** | `backend/` | Express + SQLite — products, auth, cart, orders |
-| **Config** | `assets/js/ht-api-config.js` | Sets `HT_API_BASE` (e.g. `http://localhost:3001`) |
-| **Client** | `assets/js/api-client.js` | `HTApi.*` helpers + JWT / guest session |
+| Piece        | Path                         | Notes                                             |
+| ------------ | ---------------------------- | ------------------------------------------------- |
+| **Node API** | `backend/`                   | Express + SQLite — products, auth, cart, orders   |
+| **Config**   | `assets/js/ht-api-config.js` | Sets `HT_API_BASE` (e.g. `http://localhost:3001`) |
+| **Client**   | `assets/js/api-client.js`    | `HTApi.*` helpers + JWT / guest session           |
 
 See **`backend/README.md`** for install (`npm install`, `npm run seed`, `npm run dev`) and endpoint list. Run the static site and API on two ports (e.g. PHP `8080` + API `3001`).
 
@@ -192,13 +192,13 @@ Examples: `npx serve .`, Python `python -m http.server 8080`, or IIS/XAMPP point
 
 #### Static + Node API (recommended for cart / orders / admin)
 
-| Component | Suggestion |
-|-----------|------------|
-| **Frontend** | Same static upload as above |
-| **API** | Run `backend` on a VPS, Azure App Service, Railway, Render, etc. with Node 18+ |
-| **Database** | Default SQLite file in `backend/data/`; for production scale, migrate to PostgreSQL/MySQL |
-| **Env** | Set `JWT_SECRET`, `ADMIN_API_KEY`, `CORS_ORIGIN` to your real shop URL (e.g. `https://shop.example.com`) |
-| **Frontend config** | `HT_API_BASE = 'https://api.example.com'` (no trailing slash) |
+| Component           | Suggestion                                                                                               |
+| ------------------- | -------------------------------------------------------------------------------------------------------- |
+| **Frontend**        | Same static upload as above                                                                              |
+| **API**             | Run `backend` on a VPS, Azure App Service, Railway, Render, etc. with Node 18+                           |
+| **Database**        | Default SQLite file in `backend/data/`; for production scale, migrate to PostgreSQL/MySQL                |
+| **Env**             | Set `JWT_SECRET`, `ADMIN_API_KEY`, `CORS_ORIGIN` to your real shop URL (e.g. `https://shop.example.com`) |
+| **Frontend config** | `HT_API_BASE = 'https://api.example.com'` (no trailing slash)                                            |
 
 Use a reverse proxy so the browser calls one origin if you prefer (e.g. nginx: `/api` → `localhost:3001`).
 
